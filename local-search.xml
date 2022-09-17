@@ -4,6 +4,31 @@
   
   
   <entry>
+    <title>domain的问题”</title>
+    <link href="/2022/09/17/domain%E7%9A%84%E9%97%AE%E9%A2%98%E2%80%9D/"/>
+    <url>/2022/09/17/domain%E7%9A%84%E9%97%AE%E9%A2%98%E2%80%9D/</url>
+    
+    <content type="html"><![CDATA[<p>说的就是这个目前这个博客，每次提交都得上Pages里面改 Custom domain，很烦</p><p>解决方法很简单</p><p>在hexo博客目录下的 <code>source/</code> 目录中新建<code>CNAME</code>文件即可，内容为你为博客分配的域名</p><p><img src="https://cdn.jsdelivr.net/gh/nange076/images/picgo/202209170959646.png" alt="image-20220917095915053"></p><p>测试后完美解决问题</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>小问题解决</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>github</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>笔记迁移-SpringValidation</title>
     <link href="/2022/09/17/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB-SpringValidation/"/>
     <url>/2022/09/17/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB-SpringValidation/</url>
