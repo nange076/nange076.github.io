@@ -23,14 +23,14 @@
 <meta property="og:site_name" content="zenithzone">
 <meta property="og:description" content="Vue是响应式的js框架，可以让对dom元素的操作变得简单 使用Vue1、Vscode安装vue相应的插件 2、浏览器安装vue devtools插件 Vscode使用Vue  新终端输入命令 npm init -y 设置启动状态  输入 npm install vue 安装vue需要的依赖   第一个Vue程序 &amp;#123;&amp;#123;&amp;#125;&amp;#125;双花括号调用属性只能用于尖括号内，并">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://img2018.cnblogs.com/blog/1511283/201812/1511283-20181220191905899-498488043.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/notes-html%2Bcss%2Bjs/image.7i8um7zrmyg0.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172035082.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172036770.png">
 <meta property="article:published_time" content="2022-09-16T13:28:56.000Z">
-<meta property="article:modified_time" content="2022-09-16T13:46:25.276Z">
+<meta property="article:modified_time" content="2022-10-17T12:36:08.980Z">
 <meta property="article:author" content="nange076">
 <meta property="article:tag" content="Vue">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://img2018.cnblogs.com/blog/1511283/201812/1511283-20181220191905899-498488043.png">
+<meta name="twitter:image" content="https://img.zenithzone.top/pic/202210172035082.png">
   
   
   
@@ -437,7 +437,7 @@
 <p>案例（为了易读性，将对象定义在外面）：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-comment">//对象</span><br><span class="hljs-keyword">const</span> comp3=&#123;<br>    <span class="hljs-attr">template</span>: <span class="hljs-string">`&lt;p v-text=&quot;num&quot; v-on:click=&quot;num++&quot;&gt;&lt;/p&gt;`</span>,<br>    <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) &#123;<br>        <span class="hljs-keyword">return</span> &#123;<br>            <span class="hljs-attr">num</span>:<span class="hljs-number">10</span>,<br>        &#125;<br>    &#125;,<br>&#125;;<br><span class="hljs-comment">//vue实例</span><br><span class="hljs-keyword">const</span> app1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vue</span>(&#123;<br>    <span class="hljs-attr">el</span>:<span class="hljs-string">&quot;#app1&quot;</span>,<br>    <span class="hljs-attr">data</span>:&#123;<br>        <span class="hljs-attr">numxx</span>:<span class="hljs-number">1</span>,<br>    &#125;,<br>    <span class="hljs-attr">components</span>:&#123;<br>        <span class="hljs-attr">comp3</span>:comp3   &#125; <br>&#125;)<br></code></pre></td></tr></table></figure>
 
-<h1 id="生命周期和钩子函数"><a href="#生命周期和钩子函数" class="headerlink" title="生命周期和钩子函数"></a>生命周期和钩子函数</h1><p><img src="https://img2018.cnblogs.com/blog/1511283/201812/1511283-20181220191905899-498488043.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<h1 id="生命周期和钩子函数"><a href="#生命周期和钩子函数" class="headerlink" title="生命周期和钩子函数"></a>生命周期和钩子函数</h1><p><img src="https://img.zenithzone.top/pic/202210172035082.png" srcset="/img/loading.gif" lazyload alt="img"></p>
 <p>created:页面渲染之前</p>
 <p>mounted：页面渲染之后</p>
 <h1 id="router"><a href="#router" class="headerlink" title="router"></a>router</h1><p>vue实例为一般只有一个html页面，通过控制页面内的组件来实现不同页面的效果</p>
@@ -461,7 +461,7 @@
 
 <p>推荐使用箭头函数，axios调用vue组件中的属性可用this.</p>
 <h1 id="Vue脚手架"><a href="#Vue脚手架" class="headerlink" title="Vue脚手架"></a>Vue脚手架</h1><p>vue ui 新建的项目没有vue-router nmd</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/notes-html%2Bcss%2Bjs/image.7i8um7zrmyg0.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172036770.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>自定义，记得选router，关闭linter（规范太鸡儿恶心了）</p>
 <h1 id="babel"><a href="#babel" class="headerlink" title="babel"></a>babel</h1><p>一般写的前端代码用的是es6，但是es6的兼容性不好，所以安装babel把es6代码转换为es5</p>
 <h1 id="WebPack"><a href="#WebPack" class="headerlink" title="WebPack"></a>WebPack</h1><p>打包工具，减少资源调用的损耗</p>

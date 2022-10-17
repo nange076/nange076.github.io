@@ -23,16 +23,14 @@
 <meta property="og:site_name" content="zenithzone">
 <meta property="og:description" content="一、快速开始中文官网：MyBatis-Plus (baomidou.com)  搭建基础的springboot项目，不要勾选mybatis，会与mbp冲突。  引入依赖： 12345 &lt;dependency&gt;     &lt;groupId&gt;com.baomidou&lt;&#x2F;groupId&gt;     &lt;artifactId&gt;mybatis-plus-boot-s">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207071909251.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207072247182.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207072249319.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207072252850.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172025967.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172029316.png">
 <meta property="article:published_time" content="2022-09-17T01:39:56.000Z">
-<meta property="article:modified_time" content="2022-09-17T01:44:11.881Z">
+<meta property="article:modified_time" content="2022-10-17T12:29:04.502Z">
 <meta property="article:author" content="nange076">
 <meta property="article:tag" content="Mybatis-Plus">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207071909251.png">
+<meta name="twitter:image" content="https://img.zenithzone.top/pic/202210172025967.png">
   
   
   
@@ -236,7 +234,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4.2k 字
+          4.6k 字
         
       </span>
     
@@ -247,7 +245,7 @@
         
         
         
-          35 分钟
+          39 分钟
         
       </span>
     
@@ -298,9 +296,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"> <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.baomidou<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>     <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.2<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
 </li>
 <li><p>application中配置mapper扫描</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@MapperScan(&quot;cn.zhn.mbpboot.mapper&quot;)</span><span class="hljs-comment">//mapper接口所在的包路径</span><br></code></pre></td></tr></table></figure>
-
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207071909251.png" srcset="/img/loading.gif" lazyload alt="image-20220707190851470"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@MapperScan(&quot;cn.zhn.mbpboot.mapper&quot;)</span><span class="hljs-comment">//mapper接口所在的包路径</span><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">YourApplication</span>&#123;<br>    ....<br>&#125;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>开启日志功能，打印查询时所用的语句</p>
 </li>
@@ -334,14 +330,14 @@
 <h2 id="BaseMapper-更新"><a href="#BaseMapper-更新" class="headerlink" title="BaseMapper 更新"></a>BaseMapper 更新</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">void</span> <span class="hljs-title function_">testUpdateById</span><span class="hljs-params">()</span>&#123;<br>   <span class="hljs-comment">//通过id更新信息</span><br>   <span class="hljs-comment">//UPDATE tb_user SET name=?, age=? WHERE id=?</span><br>   <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span><span class="hljs-keyword">new</span> <span class="hljs-title class_">User</span>();<br>  user.setId(<span class="hljs-number">4L</span>);<br>  user.setName(<span class="hljs-string">&quot;pan&quot;</span>);<br>  user.setAge(<span class="hljs-number">16</span>);<br> <span class="hljs-type">int</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span>  userMapper.updateById(user);<br>    System.out.println(result);<br>&#125;<br></code></pre></td></tr></table></figure>
 
 <h2 id="自定义功能"><a href="#自定义功能" class="headerlink" title="自定义功能"></a>自定义功能</h2><p>当BaseMapper的基础功能不满足需求时（如多表联查），可自定义mapper的方法（与mabatis使用方法一样，mbp只做了加法，未修改）</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207072247182.png" srcset="/img/loading.gif" lazyload alt="image-20220707224731154"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172025967.png" srcset="/img/loading.gif" lazyload alt="image-20220707224731154"></p>
 <p>报错则大概率为没配置mapper-location</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207072249319.png" srcset="/img/loading.gif" lazyload alt="image-20220707224956285"></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">mybatis-plus:</span><br>  <span class="hljs-attr">configuration:</span><br>    <span class="hljs-comment"># 日志</span><br>    <span class="hljs-attr">log-impl:</span> <span class="hljs-string">org.apache.ibatis.logging.stdout.StdOutImpl</span><br>  <span class="hljs-attr">global-config:</span><br>    <span class="hljs-attr">db-config:</span><br>      <span class="hljs-attr">logic-delete-field:</span> <span class="hljs-string">delFlag</span><br>      <span class="hljs-attr">logic-delete-value:</span> <span class="hljs-number">1</span><br>      <span class="hljs-attr">logic-not-delete-value:</span> <span class="hljs-number">0</span><br>      <span class="hljs-attr">id-type:</span> <span class="hljs-string">auto</span> <span class="hljs-comment">#主键生成策略</span><br>      <span class="hljs-attr">table-prefix:</span> <span class="hljs-string">sg_</span><br>  <span class="hljs-attr">type-aliases-package:</span> <span class="hljs-string">cn.zhn.framework.pojo</span> <span class="hljs-comment">#别名实体类</span><br>  <span class="hljs-attr">type-enums-package:</span> <span class="hljs-string">cn.zhn.framework.enums</span><br>  <span class="hljs-attr">mapper-locations:</span> <span class="hljs-string">classpath*:/mapper/**/*.xml</span> <span class="hljs-string">//就是这一条</span><br>  <br></code></pre></td></tr></table></figure>
+
 <p>默认值为<code>mapper-locations: classpath*:/mapper/**/*.xml</code></p>
 <ul>
-<li>我这边遇到的问题是<code>mapper-locations not fond</code>，配置成上图一样能用了</li>
+<li>我这边遇到的问题是<code>mapper-locations not fond</code>，正确配置之后mbp可以使用返回值为Map的接口（不愧为mybatis的增强版）</li>
 </ul>
-<p>mbp可以使用返回值为Map的接口（不愧为mybatis的增强版）</p>
 <p>UserMapper.class：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserMapper</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">BaseMapper</span>&lt;User&gt; &#123;<br>     Map&lt;String,Object&gt; <span class="hljs-title function_">selectGetMap</span><span class="hljs-params">(Long id)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
 
@@ -349,7 +345,7 @@
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;selectGetMap&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;map&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;Long&quot;</span>&gt;</span><br>    SELECT user_name,password,name,age,email FROM tb_user<br>    WHERE id= #&#123;id&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
 
 <p>测试结果：</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207072252850.png" srcset="/img/loading.gif" lazyload alt="image-20220707225230814"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172029316.png" srcset="/img/loading.gif" lazyload alt="image-20220707225230814"></p>
 <h1 id="三、通用Service接口"><a href="#三、通用Service接口" class="headerlink" title="三、通用Service接口"></a>三、通用Service接口</h1><p>mbp的Service使用的方法<a target="_blank" rel="noopener" href="https://baomidou.com/pages/49cc81/#service-crud-%E6%8E%A5%E5%8F%A3">CRUD 接口 | MyBatis-Plus (baomidou.com)</a></p>
 <p>UserService:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserService</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">IService</span>&lt;User&gt; &#123;&#125;<br></code></pre></td></tr></table></figure>

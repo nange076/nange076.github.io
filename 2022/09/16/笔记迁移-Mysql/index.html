@@ -23,15 +23,14 @@
 <meta property="og:site_name" content="zenithzone">
 <meta property="og:description" content="一些基本操作及注意点(基础篇)基于尚硅谷的视频与资料【宋红康】MySQL数据库（mysql安装&#x2F;基础&#x2F;高级&#x2F;优化）_哔哩哔哩_bilibili  练习使用的数据库基于尚硅谷 一、SELECT相关列的别名 使用关键字AS，如果别名需要存在空格，用&quot;&quot;  AS关键字可以省略；  12SELECT last_name AS name, commissio">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://s2.loli.net/2022/01/20/rWocZMVkU5LQpjl.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202208011549617.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202208011625676.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172029611.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172029076.png">
 <meta property="article:published_time" content="2022-09-16T12:46:43.000Z">
-<meta property="article:modified_time" content="2022-09-16T13:46:26.268Z">
+<meta property="article:modified_time" content="2022-10-17T12:30:50.876Z">
 <meta property="article:author" content="nange076">
 <meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://s2.loli.net/2022/01/20/rWocZMVkU5LQpjl.png">
+<meta name="twitter:image" content="https://img.zenithzone.top/pic/202210172029611.png">
   
   
   
@@ -496,7 +495,7 @@
 
 <p>UNION 和UNION ALL 的区别：</p>
 <p><code>UNION</code>会去重，但效率低；<code>UNION ALL</code>不会去重，效率高；所以在开发中尽量实现<code>UNION ALL</code></p>
-<h4 id="七种SQL-JOIN实现"><a href="#七种SQL-JOIN实现" class="headerlink" title="七种SQL JOIN实现"></a>七种SQL JOIN实现</h4><p><img src="https://s2.loli.net/2022/01/20/rWocZMVkU5LQpjl.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h4 id="七种SQL-JOIN实现"><a href="#七种SQL-JOIN实现" class="headerlink" title="七种SQL JOIN实现"></a>七种SQL JOIN实现</h4><p><img src="https://img.zenithzone.top/pic/202210172029611.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
 <ul>
 <li><p>中图：内连接</p>
 </li>
@@ -598,7 +597,7 @@
 
 <h3 id="子查询的分类"><a href="#子查询的分类" class="headerlink" title="子查询的分类"></a>子查询的分类</h3><p>分类方式1：</p>
 <p>我们按内查询的结果返回一条还是多条记录，将子查询分为 <code>单行子查询 </code>、 <code>多行子查询</code> 。</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202208011549617.png" srcset="/img/loading.gif" lazyload alt="image-20220801154956481"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172029076.png" srcset="/img/loading.gif" lazyload alt="image-20220801154956481"></p>
 <p>分类方式2：</p>
 <p> 我们按内查询是否被执行多次，将子查询划分为 <code>相关(或关联)子查询</code> 和 <code>不相关(或非关联)子查询 </code>。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs sql">#<span class="hljs-number">4.</span>查询和姓名中包含字母u的员工在相同部门的员工的员工号和姓名<br># 非相关子查询<br><span class="hljs-keyword">SELECT</span> employee_id,last_name<br><span class="hljs-keyword">FROM</span> employees<br><span class="hljs-keyword">WHERE</span> department_id <span class="hljs-keyword">IN</span> (<br>    <span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">DISTINCT</span> department_id<br>    <span class="hljs-keyword">FROM</span> employees emi<br>    <span class="hljs-keyword">WHERE</span> emi.last_name <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;%u%&#x27;</span> <br>)<br>												<br># 相关子查询：<br><span class="hljs-keyword">SELECT</span> employee_id,last_name<br><span class="hljs-keyword">FROM</span> employees emo<br><span class="hljs-keyword">WHERE</span> <span class="hljs-keyword">EXISTS</span>(<br>    <span class="hljs-keyword">SELECT</span> &quot;X&quot;<br>    <span class="hljs-keyword">FROM</span> employees emi<br>    <span class="hljs-keyword">WHERE</span> last_name <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;%u%&#x27;</span> <span class="hljs-keyword">AND</span> emo.department_id <span class="hljs-operator">=</span> emi.department_id<br>);<br></code></pre></td></tr></table></figure>
@@ -722,7 +721,7 @@
 
 <h4 id="创建方式2"><a href="#创建方式2" class="headerlink" title="创建方式2"></a>创建方式2</h4><ul>
 <li><p>使用 AS subquery 选项，将创建表和插入数据结合起来</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202208011625676.png" srcset="/img/loading.gif" lazyload alt="image-20220801162556588"></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">table</span><br>		[(cloumn,column..)]<br><span class="hljs-keyword">AS</span> subquery;<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>指定的列和子查询中的列要一一对应 </p>
 </li>

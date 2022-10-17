@@ -23,23 +23,23 @@
 <meta property="og:site_name" content="zenithzone">
 <meta property="og:description" content="写在前面： 本人一直使用这套阿里云盘挂载到本地的方案，使用了少说有一年了，看视频非常的快，很舒服。但七月初突然没法用了，原先使用的是jar包形式的运行的软件现在更新成了可执行文件的形式，所以小小的重新配置了一遍。个人觉得这套方案十分不错，故分享给大家（当然大概没几个人会看到哈哈哈） 值得说明的是：所谓的将阿里云盘挂载到本地其实是使用时将相应的文件缓存到本地（所以使用时需要配置，这个下面会提到），不">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/nange076/images/picgo/202209162117394.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927309.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207071112772.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927493.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927408.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/nange076/images/picgo/202209162121263.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927513.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927157.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207071143145.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171928062.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171928772.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172038114.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172038051.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172038477.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172038281.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172038598.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172039203.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172039790.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172039190.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172039555.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172039290.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210172039542.png">
 <meta property="article:published_time" content="2022-09-16T13:18:24.000Z">
-<meta property="article:modified_time" content="2022-09-24T06:52:33.088Z">
+<meta property="article:modified_time" content="2022-10-17T12:39:50.661Z">
 <meta property="article:author" content="nange076">
 <meta property="article:tag" content="瞎折腾">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/nange076/images/picgo/202209162117394.png">
+<meta name="twitter:image" content="https://img.zenithzone.top/pic/202210172038114.png">
   
   
   
@@ -308,38 +308,38 @@
 <p><a target="_blank" rel="noopener" href="https://www.aliyundrive.com/s/TTmzh2GfJHk">xml文件参考下载</a></p>
 <p>具体步骤：</p>
 <p>1、创建一个目录，将<code>aliyundrive-webdav.exe</code>和<code>winsm.exe</code>放到该目录下，并创建一个<code>xml文件</code>用于配置。<code>xml文件</code>的名字可自定义，<code>winsm.exe</code>（这三个文件都可改名）</p>
-<p><img src="https://cdn.jsdelivr.net/gh/nange076/images/picgo/202209162117394.png" srcset="/img/loading.gif" lazyload alt="image-20220707111723261"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172038114.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>请忽略log文件。这里我将<code>winsm.exe</code>改名为了<code>webdav.exe</code>，用于配置的<code>xml文件</code>为<code>webdav.xml</code></p>
 <p>2、登陆阿里云盘，获取refresh token</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927309.png" srcset="/img/loading.gif" lazyload alt="image-20220407095808714"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172038051.png" srcset="/img/loading.gif" lazyload alt="image-20220407095808714"></p>
 <p>得到的token先保留着，下一步使用</p>
 <p>3、修改配置文件webdav.xml</p>
 <p>配置文件可参考winsw的github地址<a target="_blank" rel="noopener" href="https://github.com/winsw/winsw">winsw&#x2F;winsw: A wrapper executable that can run any executable as a Windows service, in a permissive license. (github.com)</a></p>
 <p>也可以用我上传的</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207071112772.png" srcset="/img/loading.gif" lazyload alt="image-20220707111214693"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172038477.png" srcset="/img/loading.gif" lazyload alt="image-20220707111214693"></p>
 <ul>
 <li>填入你的refresh token</li>
 <li>第十四行代码（我给的xml配置文件）可以指定<code>aliyundrive-webdav.exe的路径</code>和本地登陆的用户名和密码，可自行修改</li>
 </ul>
 <p>4、cmd进入到webjar文件夹路径</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927493.png" srcset="/img/loading.gif" lazyload alt="image-20220407100138632"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172038281.png" srcset="/img/loading.gif" lazyload alt="image-20220407100138632"></p>
 <p>执行 webdav.exe install 和 webdav.exe start</p>
 <p>5、查看services是否存在该服务（注：服务名和id可在配置文件webdav.xml里修改</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927408.png" srcset="/img/loading.gif" lazyload alt="image-20220407100347200"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172038598.png" srcset="/img/loading.gif" lazyload alt="image-20220407100347200"></p>
 <p>设置为自动并确认启动成功</p>
-<p>6、浏览器访问localhost:8999 输入设置的账号和密码（端口号一样在配置文件里改<img src="https://cdn.jsdelivr.net/gh/nange076/images/picgo/202209162121263.png" srcset="/img/loading.gif" lazyload alt="image-20220407100435182"></p>
+<p>6、浏览器访问localhost:8999 输入设置的账号和密码（端口号一样在配置文件里改<img src="https://img.zenithzone.top/pic/202210172039203.png" srcset="/img/loading.gif" lazyload alt="image-20220407100435182"></p>
 <p>出现该页面即配置成功，进不去那就是你账号密码搞忘了，看配置文件去</p>
 <p>7、安装raidrive</p>
 <p>右上角添加，选择NAS-&gt;WebDav</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927513.png" srcset="/img/loading.gif" lazyload alt="image-20220407100757669"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172039790.png" srcset="/img/loading.gif" lazyload alt="image-20220407100757669"></p>
 <p>示例：</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171927157.png" srcset="/img/loading.gif" lazyload alt="image-20220407100817550"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172039190.png" srcset="/img/loading.gif" lazyload alt="image-20220407100817550"></p>
 <p>注意：不要勾选地址选项，不然访问的是https,这里原先配置的是http。</p>
 <p>设置临时目录（缓存目录，不设置默认在C盘）</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202207071143145.png" srcset="/img/loading.gif" lazyload alt="image-20220707114225844"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172039555.png" srcset="/img/loading.gif" lazyload alt="image-20220707114225844"></p>
 <p>8、效果</p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171928062.png" srcset="/img/loading.gif" lazyload alt="image-20220407100936460"></p>
-<p><img src="https://raw.githubusercontent.com/nange076/images/master/%E8%BD%AF%E8%80%83/202205171928772.png" srcset="/img/loading.gif" lazyload alt="image-20220407100945508"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172039290.png" srcset="/img/loading.gif" lazyload alt="image-20220407100936460"></p>
+<p><img src="https://img.zenithzone.top/pic/202210172039542.png" srcset="/img/loading.gif" lazyload alt="image-20220407100945508"></p>
 <p>视频文件秒打开，文件系统结构和阿里云web页面看到的一致，可添加、删除、修改文件</p>
 <p>9、使用到的项目</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/winsw/winsw">winsw&#x2F;winsw: A wrapper executable that can run any executable as a Windows service, in a permissive license. (github.com)</a></p>
