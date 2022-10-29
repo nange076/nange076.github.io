@@ -16,22 +16,35 @@
   <meta name="author" content="nange076">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Spring自带的校验框架（我懒）手把手教你利用Spring Boot实现各种参数校验-云社区-华为云 (huaweicloud.com) 避免了多层嵌套的if-else 1、最基本的使用自动匹配实体类条件控制注解User实体类 1234567891011@AllArgsConstructor@NoArgsConstructor@Datapublic class User &amp;#123;    @N">
+    <meta name="description" content="Step1: 安装插件这一步似乎没什么好说的，IDEA 自带了  Step2: 添加安装了docker的服务器设置-构建、运行、部署-Docker-点击加号添加服务器，这里使用的是ssh方式连接  当你配置正确就能在服务中看到docker主机了  Step3: 创建DockerFile在要部署的项目的根目录下创建DockerFile  因为我期望直接使用打包后产生的jar包，并且不修改目录，所以我">
 <meta property="og:type" content="article">
-<meta property="og:title" content="笔记迁移-SpringValidation">
-<meta property="og:url" content="https://www.zenithzone.top/2022/09/17/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB-SpringValidation/index.html">
+<meta property="og:title" content="使用Idea的Docker插件实现SpringBoot应用快速部署">
+<meta property="og:url" content="https://www.zenithzone.top/2022/10/29/%E4%BD%BF%E7%94%A8IDEA%E7%9A%84Docker%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0SpringBoot%E5%BA%94%E7%94%A8%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2/index.html">
 <meta property="og:site_name" content="zenithzone">
-<meta property="og:description" content="Spring自带的校验框架（我懒）手把手教你利用Spring Boot实现各种参数校验-云社区-华为云 (huaweicloud.com) 避免了多层嵌套的if-else 1、最基本的使用自动匹配实体类条件控制注解User实体类 1234567891011@AllArgsConstructor@NoArgsConstructor@Datapublic class User &amp;#123;    @N">
+<meta property="og:description" content="Step1: 安装插件这一步似乎没什么好说的，IDEA 自带了  Step2: 添加安装了docker的服务器设置-构建、运行、部署-Docker-点击加号添加服务器，这里使用的是ssh方式连接  当你配置正确就能在服务中看到docker主机了  Step3: 创建DockerFile在要部署的项目的根目录下创建DockerFile  因为我期望直接使用打包后产生的jar包，并且不修改目录，所以我">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-17T01:48:42.000Z">
-<meta property="article:modified_time" content="2022-09-17T01:49:02.462Z">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291015333.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291018333.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291022484.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291032985.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291049353.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291049366.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291049705.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291049714.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291049411.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291048686.png">
+<meta property="og:image" content="https://img.zenithzone.top/pic/202210291048757.png">
+<meta property="article:published_time" content="2022-10-29T01:59:19.000Z">
+<meta property="article:modified_time" content="2022-10-29T02:51:51.704Z">
 <meta property="article:author" content="nange076">
+<meta property="article:tag" content="docker">
 <meta property="article:tag" content="spring">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://img.zenithzone.top/pic/202210291015333.png">
   
   
   
-  <title>笔记迁移-SpringValidation - zenithzone</title>
+  <title>使用Idea的Docker插件实现SpringBoot应用快速部署 - zenithzone</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -208,7 +221,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="笔记迁移-SpringValidation"></span>
+            <span id="subtitle" data-typed-text="使用Idea的Docker插件实现SpringBoot应用快速部署"></span>
           
         </div>
 
@@ -219,8 +232,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-09-17 09:48" pubdate>
-          2022年9月17日 上午
+        <time datetime="2022-10-29 09:59" pubdate>
+          2022年10月29日 上午
         </time>
       </span>
     
@@ -231,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          829 字
+          1.1k 字
         
       </span>
     
@@ -242,7 +255,7 @@
         
         
         
-          7 分钟
+          10 分钟
         
       </span>
     
@@ -280,24 +293,40 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">笔记迁移-SpringValidation</h1>
+            <h1 style="display: none">使用Idea的Docker插件实现SpringBoot应用快速部署</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="Spring自带的校验框架"><a href="#Spring自带的校验框架" class="headerlink" title="Spring自带的校验框架"></a>Spring自带的校验框架</h1><p><a target="_blank" rel="noopener" href="https://bbs.huaweicloud.com/blogs/352491">（我懒）手把手教你利用Spring Boot实现各种参数校验-云社区-华为云 (huaweicloud.com)</a></p>
-<p>避免了多层嵌套的if-else</p>
-<h2 id="1、最基本的使用"><a href="#1、最基本的使用" class="headerlink" title="1、最基本的使用"></a>1、最基本的使用</h2><h3 id="自动匹配实体类条件控制注解"><a href="#自动匹配实体类条件控制注解" class="headerlink" title="自动匹配实体类条件控制注解"></a>自动匹配实体类条件控制注解</h3><p>User实体类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br>    <span class="hljs-meta">@NotNull(message = &quot;年龄不能为空&quot;)</span><br>    <span class="hljs-meta">@Range(min = 1, max =100)</span><br>    <span class="hljs-keyword">private</span> Integer age;<br><br>    <span class="hljs-meta">@Email(message = &quot;不符合邮箱格式&quot;)</span><br>    <span class="hljs-keyword">private</span> String email;<br>&#125;<br></code></pre></td></tr></table></figure>
+                <h1 id="Step1-安装插件"><a href="#Step1-安装插件" class="headerlink" title="Step1: 安装插件"></a>Step1: 安装插件</h1><p>这一步似乎没什么好说的，IDEA 自带了</p>
+<p><img src="https://img.zenithzone.top/pic/202210291015333.png" srcset="/img/loading.gif" lazyload alt="image-20221029101534713"></p>
+<h1 id="Step2-添加安装了docker的服务器"><a href="#Step2-添加安装了docker的服务器" class="headerlink" title="Step2: 添加安装了docker的服务器"></a>Step2: 添加安装了docker的服务器</h1><p>设置-构建、运行、部署-Docker-点击加号添加服务器，这里使用的是ssh方式连接</p>
+<p><img src="https://img.zenithzone.top/pic/202210291018333.png" srcset="/img/loading.gif" lazyload alt="image-20221029101807269"></p>
+<p>当你配置正确就能在<code>服务</code>中看到docker主机了</p>
+<p><img src="https://img.zenithzone.top/pic/202210291022484.png" srcset="/img/loading.gif" lazyload alt="image-20221029102205721"></p>
+<h1 id="Step3-创建DockerFile"><a href="#Step3-创建DockerFile" class="headerlink" title="Step3: 创建DockerFile"></a>Step3: 创建DockerFile</h1><p>在要部署的项目的根目录下创建DockerFile</p>
+<ul>
+<li>因为我期望直接使用打包后产生的jar包，并且不修改目录，所以我进行了如下的配置<code>ADD /target/Admin-1.0-SNAPSHOT.jar app.jar</code> ，如果你希望修改要运行的jar包的目录，记得修改这个参数。</li>
+<li>这里基础镜像使用的是java:8u11 ，需要提前使用<code>docker pull java:8u11</code>命令拉取，当然你可以换成其他镜像。</li>
+</ul>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile"><span class="hljs-comment"># Base images 基础镜像</span><br><span class="hljs-keyword">FROM</span> java:<span class="hljs-number">8</span>u111<br><br><span class="hljs-comment">#MAINTAINER 维护者信息</span><br><span class="hljs-keyword">MAINTAINER</span> haonan&lt;nansama@qq.com&gt;<br><br><span class="hljs-comment">#VOLUME：挂载目录</span><br><span class="hljs-keyword">VOLUME</span><span class="language-bash"> /temp</span><br><br><span class="hljs-comment">#ADD  将Admin-1.0-SNAPSHOT.jar文件将拷贝到容器中，默认拷贝到根路径下</span><br><span class="hljs-keyword">ADD</span><span class="language-bash"> /target/Admin-1.0-SNAPSHOT.jar app.jar</span><br><br><span class="hljs-keyword">RUN</span><span class="language-bash"> bash -c <span class="hljs-string">&quot;touch /app.jar&quot;</span></span><br><br><span class="hljs-comment">#EXPOSE 容器暴露端口</span><br><span class="hljs-keyword">EXPOSE</span> <span class="hljs-number">8989</span><br><br><span class="hljs-comment">#ENTRYPOINT 应用启动命令 参数设定</span><br><span class="hljs-comment">#由于tomcat的session id的生成主要通过java.security.SecureRandom生成随机数来实现，导致启动过程很慢</span><br><span class="hljs-comment">#通过-Djava.security.egd=file:/dev/./urandom参数可以加快随机数产生过程</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> [<span class="hljs-string">&quot;java&quot;</span>, <span class="hljs-string">&quot;-Djava.security.egd=file:/dev/./urandom&quot;</span>, <span class="hljs-string">&quot;-jar&quot;</span>, <span class="hljs-string">&quot;/app.jar&quot;</span>]</span><br></code></pre></td></tr></table></figure>
 
-<p>Controller</p>
-<p>使用时入参加上@Validated注解，就会自动判断是否符合实体类上写的注解</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <br>    <span class="hljs-meta">@PostMapping(&quot;/test1&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">add1</span><span class="hljs-params">(<span class="hljs-meta">@RequestBody</span> <span class="hljs-meta">@Validated</span> User user)</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;ok&quot;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>注意文件的位置</li>
+</ul>
+<p><img src="https://img.zenithzone.top/pic/202210291032985.png" srcset="/img/loading.gif" lazyload alt="image-20221029103138914"></p>
+<p><img src="https://img.zenithzone.top/pic/202210291049353.png" srcset="/img/loading.gif" lazyload alt="image-20221029104503250"></p>
+<h1 id="Step4-Idea添加配置"><a href="#Step4-Idea添加配置" class="headerlink" title="Step4: Idea添加配置"></a>Step4: Idea添加配置</h1><p><img src="https://img.zenithzone.top/pic/202210291049366.png" srcset="/img/loading.gif" lazyload alt="image-20221029103424757"></p>
+<p><img src="https://img.zenithzone.top/pic/202210291049705.png" srcset="/img/loading.gif" lazyload alt="image-20221029103514122"></p>
+<p>添加完配置后，填入参数，我这个服务开放8989端口，并且使用网络模式为host模式</p>
+<p><img src="https://img.zenithzone.top/pic/202210291049714.png" srcset="/img/loading.gif" lazyload alt="image-20221029103703806"></p>
+<h1 id="Step5-打包并运行"><a href="#Step5-打包并运行" class="headerlink" title="Step5 打包并运行"></a>Step5 打包并运行</h1><p>idea配置完并保存，并且确定打包成功，就可以直接运行了</p>
+<p><img src="https://img.zenithzone.top/pic/202210291049411.png" srcset="/img/loading.gif" lazyload alt="image-20221029103855518"></p>
+<p>去服务中可以看到运行情况和日志</p>
+<p><img src="https://img.zenithzone.top/pic/202210291048686.png" srcset="/img/loading.gif" lazyload alt="image-20221029104158549"></p>
+<p><img src="https://img.zenithzone.top/pic/202210291048757.png" srcset="/img/loading.gif" lazyload alt="image-20221029104232474"></p>
+<h1 id="代码修改后重新部署"><a href="#代码修改后重新部署" class="headerlink" title="代码修改后重新部署"></a>代码修改后重新部署</h1><p>代码修改后，需要重新部署的话不需要再进行额外的配置，只需要maven执行clean 后再次package并运行docker配置就行。需要注意的是，因为是重新构建镜像，这样的操作只会删除容器并重新创建运行，并不会删除之前的镜像，需要手动删除</p>
 
-<h3 id="get方法parm上的参数使用注解"><a href="#get方法parm上的参数使用注解" class="headerlink" title="get方法parm上的参数使用注解"></a>get方法parm上的参数使用注解</h3><p>Controller上加上@Validated注解，入参加上@PathVariable和具体的条件</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@Validated</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserController</span> &#123;<br>    <span class="hljs-meta">@GetMapping(&quot;/test2/&#123;id&#125;&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">path</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(&quot;id&quot;)</span> <span class="hljs-meta">@Max(100)</span> <span class="hljs-type">int</span> id)</span>&#123;<br>       <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;ok&quot;</span> ;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<h2 id="2、分组注解-咕咕咕"><a href="#2、分组注解-咕咕咕" class="headerlink" title="2、分组注解(咕咕咕)"></a>2、分组注解(咕咕咕)</h2>
                 
               </div>
             
@@ -332,16 +361,6 @@
       </span>
     
   
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB/" class="category-chain-item">笔记迁移</a>
-  
-  
-
-      </span>
-    
-  
 </span>
 
     </div>
@@ -349,6 +368,8 @@
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/docker/">#docker</a>
       
         <a href="/tags/spring/">#spring</a>
       
@@ -362,8 +383,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>笔记迁移-SpringValidation</div>
-      <div>https://www.zenithzone.top/2022/09/17/笔记迁移-SpringValidation/</div>
+      <div>使用Idea的Docker插件实现SpringBoot应用快速部署</div>
+      <div>https://www.zenithzone.top/2022/10/29/使用IDEA的Docker插件实现SpringBoot应用快速部署/</div>
     </div>
     <div class="license-meta">
       
@@ -375,7 +396,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年9月17日</div>
+          <div>2022年10月29日</div>
         </div>
       
       
@@ -407,18 +428,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/09/17/GitHub%20Pages%20%E4%B8%AD%E7%9A%84Custom%20domain%20%E9%97%AE%E9%A2%98/" title="“解决博客部署到gitpages后每次提交都更新customdomain的问题”">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">“解决博客部署到gitpages后每次提交都更新customdomain的问题”</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/17/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB-SpringBoot%E7%BB%AD/" title="笔记迁移-SpringBoot续">
-                        <span class="hidden-mobile">笔记迁移-SpringBoot续</span>
+                      <a href="/2022/09/17/GitHub%20Pages%20%E4%B8%AD%E7%9A%84Custom%20domain%20%E9%97%AE%E9%A2%98/" title="“解决博客部署到gitpages后每次提交都更新customdomain的问题”">
+                        <span class="hidden-mobile">“解决博客部署到gitpages后每次提交都更新customdomain的问题”</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
