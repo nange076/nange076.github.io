@@ -1,0 +1,840 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <link rel="icon" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="haonan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Mongodb原生CRUD操作（Mongo shell）Insert 插入单条数据：db.collection.insertOne()  123db.inventory.insertOne(   &amp;#123; item: &quot;canvas&quot;, qty: 100, tags: [&quot;cotton&quot;], size: &amp;#123; h: 28, w: 35.5, uo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mongodb原生CRUD操作（Mongo shell）">
+<meta property="og:url" content="https://www.zenithzone.top/2023/08/08/Mongodb%E5%8E%9F%E7%94%9FCRUD%E6%93%8D%E4%BD%9C%EF%BC%88Mongo%20shell%EF%BC%89/index.html">
+<meta property="og:site_name" content="zenithzone">
+<meta property="og:description" content="Mongodb原生CRUD操作（Mongo shell）Insert 插入单条数据：db.collection.insertOne()  123db.inventory.insertOne(   &amp;#123; item: &quot;canvas&quot;, qty: 100, tags: [&quot;cotton&quot;], size: &amp;#123; h: 28, w: 35.5, uo">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-08T06:07:00.000Z">
+<meta property="article:modified_time" content="2024-05-14T08:33:12.482Z">
+<meta property="article:author" content="haonan">
+<meta property="article:tag" content="Mongodb">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Mongodb原生CRUD操作（Mongo shell） - zenithzone</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.zenithzone.top","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zenithzone</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-20-15-dfc00bcbcca954cc0ca25a95e07ae3b8-202210171933394-65530d.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Mongodb原生CRUD操作（Mongo shell）"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-08 14:07" pubdate>
+          2023年8月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          8.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          71 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Mongodb原生CRUD操作（Mongo shell）</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Mongodb原生CRUD操作（Mongo-shell）"><a href="#Mongodb原生CRUD操作（Mongo-shell）" class="headerlink" title="Mongodb原生CRUD操作（Mongo shell）"></a>Mongodb原生CRUD操作（Mongo shell）</h1><h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><ul>
+<li>插入单条数据：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/method/db.collection.insertOne/#db.collection.insertOne"><code>db.collection.insertOne()</code></a></li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">db.inventory.insertOne(<br>   &#123; item: &quot;canvas&quot;, qty: 100, tags: [&quot;cotton&quot;], size: &#123; h: 28, w: 35.5, uom: &quot;cm&quot; &#125; &#125;<br>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>插入多条数据：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/method/db.collection.insertMany/#db.collection.insertMany"><code>db.collection.insertMany()</code></a></li>
+</ul>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.insertMany(<span class="hljs-punctuation">[</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> size<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> h<span class="hljs-punctuation">:</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span> w<span class="hljs-punctuation">:</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span> uom<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;mat&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">85</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;gray&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> size<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> h<span class="hljs-punctuation">:</span> <span class="hljs-number">27.9</span><span class="hljs-punctuation">,</span> w<span class="hljs-punctuation">:</span> <span class="hljs-number">35.5</span><span class="hljs-punctuation">,</span> uom<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;mousepad&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;gel&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;blue&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> size<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> h<span class="hljs-punctuation">:</span> <span class="hljs-number">19</span><span class="hljs-punctuation">,</span> w<span class="hljs-punctuation">:</span> <span class="hljs-number">22.85</span><span class="hljs-punctuation">,</span> uom<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">]</span>)<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>插入单条或多条数据：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/method/db.collection.insert/#db.collection.insert"><code>db.collection.insert()</code></a></li>
+</ul>
+<p>上述语句中，<code>inventory</code>是集合名，类似于mysql中的表名。执行插入操作时，若集合不存在，会自动创建该集合。</p>
+<p>文档默认以<code>_id</code>为主键，若添加文档时没有指定则会自动创建。</p>
+<h2 id="Query"><a href="#Query" class="headerlink" title="Query"></a>Query</h2><h3 id="查询全部"><a href="#查询全部" class="headerlink" title="查询全部"></a>查询全部</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">db.inventory.find( &#123;&#125; )<br></code></pre></td></tr></table></figure>
+
+<p>sql类比</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> inventory<br></code></pre></td></tr></table></figure>
+
+<h3 id="字段匹配"><a href="#字段匹配" class="headerlink" title="字段匹配"></a>字段匹配</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span> &lt;field1&gt;<span class="hljs-punctuation">:</span> &lt;value1&gt;<span class="hljs-punctuation">,</span> ... <span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>列子</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;D&quot;</span> <span class="hljs-punctuation">&#125;</span> )<br></code></pre></td></tr></table></figure>
+
+<p>sql类比</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> inventory <span class="hljs-keyword">WHERE</span> status <span class="hljs-operator">=</span> &quot;D&quot;<br></code></pre></td></tr></table></figure>
+
+<h3 id="in"><a href="#in" class="headerlink" title="$in"></a>$in</h3><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span> &lt;field1&gt;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> &lt;operator1&gt;<span class="hljs-punctuation">:</span> &lt;value1&gt; <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> ... <span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> $in<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;D&quot;</span> <span class="hljs-punctuation">]</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">&#125;</span> )<br></code></pre></td></tr></table></figure>
+
+<p>sql类比：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> inventory <span class="hljs-keyword">WHERE</span> status <span class="hljs-keyword">in</span> (&quot;A&quot;, &quot;D&quot;)<br></code></pre></td></tr></table></figure>
+
+<h3 id="AND"><a href="#AND" class="headerlink" title="AND"></a>AND</h3><p>and只需要多个条件并列出现就行</p>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> $lt<span class="hljs-punctuation">:</span> <span class="hljs-number">30</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">&#125;</span> )<br></code></pre></td></tr></table></figure>
+
+<p>sql类比：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> inventory <span class="hljs-keyword">WHERE</span> status <span class="hljs-operator">=</span> &quot;A&quot; <span class="hljs-keyword">AND</span> qty <span class="hljs-operator">&lt;</span> <span class="hljs-number">30</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="or"><a href="#or" class="headerlink" title="$or"></a>$or</h3><p>使用<code>[]</code>包裹多个条件，使用<code>&#123;&#125;</code>包裹单个条件</p>
+<p>例子：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    $or<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            status<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>                $in<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;D&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">]</span><br>            <span class="hljs-punctuation">&#125;</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;notebook&quot;</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>sql类比：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> inventory <span class="hljs-keyword">WHERE</span> status <span class="hljs-keyword">in</span> (&quot;A&quot;,&quot;D&quot;) <span class="hljs-keyword">OR</span> item <span class="hljs-operator">=</span> &quot;notebook&quot;<br></code></pre></td></tr></table></figure>
+
+<h3 id="查询嵌套的文档"><a href="#查询嵌套的文档" class="headerlink" title="查询嵌套的文档"></a>查询嵌套的文档</h3><p>有一文档，在Mongo中的保存格式如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d05909567e4ed0a20b0139&quot;</span>)<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;tags&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-string">&quot;red&quot;</span><br>    <span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;size&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;h&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;w&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;uom&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用<code>db.collection.find()</code>查询</p>
+<p><strong>方式一：文档完全匹配</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    size<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        h<span class="hljs-punctuation">:</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span><br>        w<span class="hljs-punctuation">:</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span><br>        uom<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>这种方式查询嵌套的文档，查询语句中文档的字段数量和顺序必须和库中的文档一致，否则查询结果为空</p>
+<p><strong>方式二：</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>		<span class="hljs-attr">&quot;size.uom&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span><span class="hljs-punctuation">,</span><br>		<span class="hljs-attr">&quot;size.h&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">28</span><br><span class="hljs-punctuation">&#125;</span>)<br><br>db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;size.h&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $lt<span class="hljs-punctuation">:</span> <span class="hljs-number">15</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>&quot;operator.value&quot;</code>的方式，可以直接完成嵌套查询</p>
+<h3 id="查询数组"><a href="#查询数组" class="headerlink" title="查询数组"></a>查询数组</h3><p>先往库中插入数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.insertMany(<span class="hljs-punctuation">[</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span> <span class="hljs-number">21</span> <span class="hljs-punctuation">]</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;notebook&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">50</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span> <span class="hljs-number">21</span> <span class="hljs-punctuation">]</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;paper&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">100</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;plain&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span> <span class="hljs-number">21</span> <span class="hljs-punctuation">]</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;planner&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">75</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-number">22.85</span><span class="hljs-punctuation">,</span> <span class="hljs-number">30</span> <span class="hljs-punctuation">]</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;postcard&quot;</span><span class="hljs-punctuation">,</span> qty<span class="hljs-punctuation">:</span> <span class="hljs-number">45</span><span class="hljs-punctuation">,</span> tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;blue&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span> <span class="hljs-number">10</span><span class="hljs-punctuation">,</span> <span class="hljs-number">15.25</span> <span class="hljs-punctuation">]</span> <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">]</span>);<br></code></pre></td></tr></table></figure>
+
+<p>需要顺序和value完全匹配的查询：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>不需要匹配顺序，查找包含这些value的查询：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    tags<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $all<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">&quot;red&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-string">&quot;blank&quot;</span><span class="hljs-punctuation">]</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>不需要匹配顺序，包含单个value的查询：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    tags<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;red&quot;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>一样可以对数组进行<code>$gt</code>查询</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $gt<span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>多条件匹配，返回dic_cm中，存在大于15，或小于20，或既大于15又小于20的文档</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $gt<span class="hljs-punctuation">:</span> <span class="hljs-number">15</span><span class="hljs-punctuation">,</span><br>        $lt<span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>使用<code>$elemMatch</code>关键字，返回dic_cm中至少包含一个既大于15又小于20的文档</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    dim_cm<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $elemMatch<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            $gt<span class="hljs-punctuation">:</span> <span class="hljs-number">15</span><span class="hljs-punctuation">,</span><br>			$lt<span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p><code>$elemMatch</code>用于多条件的匹配查询，如果数组只需要一个匹配需求，则不需要使用。以下两个查询等值：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>		tags<span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>		$elemMatch<span class="hljs-punctuation">:</span><span class="hljs-punctuation">&#123;</span><br>			$eq<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;red&quot;</span><br>		<span class="hljs-punctuation">&#125;</span><br>		<span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br><br>db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>		tags<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;red&quot;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>根据下标查询</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;dim_cm.1&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $gt<span class="hljs-punctuation">:</span> <span class="hljs-number">10</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>根据数组size查询</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;tags&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $size<span class="hljs-punctuation">:</span> <span class="hljs-number">3</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<h3 id="查询嵌套文档的数组"><a href="#查询嵌套文档的数组" class="headerlink" title="查询嵌套文档的数组"></a>查询嵌套文档的数组</h3><p>需要按文档顺序匹配，以下两个查询结果不同：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;instock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        warehouse<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span><br>        qty<span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br>db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;instock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        qty<span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><span class="hljs-punctuation">,</span><br>        warehouse<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>对嵌套在文档数组中的字段指定查询条件：</p>
+<p>返回instock数组中，至少存在一个qty小于等于20的文档</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    &#x27;instock.qty&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $lte<span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>对嵌套在文档数组中，下标为1的文档指定查询条件：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    &#x27;instock<span class="hljs-number">.0</span>.qty&#x27;<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $lte<span class="hljs-punctuation">:</span> <span class="hljs-number">20</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br></code></pre></td></tr></table></figure>
+
+<p>同样的，嵌套文档的多条件查询应该用<code>$elementMatch</code>，不需要考虑字段的顺序，且条件应该在同一个文档中满足</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;instock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        $elemMatch<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>            warehouse<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span><br>			qty<span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span>)<br><br>结果：<br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d0b74d567e4ed0a20b0149&quot;</span>)<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;instock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;warehouse&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;warehouse&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;C&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">15</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>他和下面的查询不等价，下面的查询不会将条件指定在同一个文档中，而是分散在多个文档，所以会返回如下的结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<br><span class="hljs-punctuation">&#123;</span><br><span class="hljs-attr">&quot;instock.warehouse&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span><br><span class="hljs-attr">&quot;instock.qty&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">5</span><br><span class="hljs-punctuation">&#125;</span><br>)<br>结果：<br><span class="hljs-comment">// 1</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d0b74d567e4ed0a20b0149&quot;</span>)<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;instock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;warehouse&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;warehouse&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;C&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">15</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br><br><span class="hljs-comment">// 2</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d0b74d567e4ed0a20b014c&quot;</span>)<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;planner&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;instock&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;warehouse&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">40</span><br>        <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-punctuation">&#123;</span><br>            <span class="hljs-attr">&quot;warehouse&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;B&quot;</span><span class="hljs-punctuation">,</span><br>            <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">5</span><br>        <span class="hljs-punctuation">&#125;</span><br>    <span class="hljs-punctuation">]</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="指定查询的返回字段"><a href="#指定查询的返回字段" class="headerlink" title="指定查询的返回字段"></a>指定查询的返回字段</h3><p>默认返回全部字段，<code>_id</code>默认返回。</p>
+<p>1表示要返回的字段，0表示忽略的字段。全为1表示只返回这些字段，全为0表示忽略这些字段，返回其他字段。</p>
+<p>返回指定字段：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<span class="hljs-punctuation">&#123;</span>status<span class="hljs-punctuation">:</span><span class="hljs-string">&quot;A&quot;</span><span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-punctuation">&#123;</span>item<span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">,</span>status<span class="hljs-punctuation">:</span><span class="hljs-number">1</span><span class="hljs-punctuation">&#125;</span>)<br><span class="hljs-comment">//结果：</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d0625f567e4ed0a20b013f&quot;</span>)<span class="hljs-punctuation">,</span><span class="hljs-comment">//_id会默认返回</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>返回指定的字段并忽略<code>_id</code>:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> status<span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> _id<span class="hljs-punctuation">:</span> <span class="hljs-number">0</span> <span class="hljs-punctuation">&#125;</span> )<br><span class="hljs-comment">//结果：</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>除了指定字段，返回其他所有字段：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span> <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-number">0</span><span class="hljs-punctuation">,</span> instock<span class="hljs-punctuation">:</span> <span class="hljs-number">0</span> <span class="hljs-punctuation">&#125;</span> )<br><span class="hljs-comment">//结果：</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d0625f567e4ed0a20b013f&quot;</span>)<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;size&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;h&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;w&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">21</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;uom&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>嵌套的文档，一样适用：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find(<br>   <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> status<span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">&quot;size.uom&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span> <span class="hljs-punctuation">&#125;</span><br>)<br><span class="hljs-comment">//结果：</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d0625f567e4ed0a20b013f&quot;</span>)<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;size&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;uom&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><br><span class="hljs-punctuation">&#125;</span><br>db.inventory.find(<br>   <span class="hljs-punctuation">&#123;</span> status<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;size.uom&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">0</span> <span class="hljs-punctuation">&#125;</span><br>)<br><span class="hljs-comment">//结果：</span><br><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;_id&quot;</span><span class="hljs-punctuation">:</span> ObjectId(<span class="hljs-string">&quot;64d0625f567e4ed0a20b013f&quot;</span>)<span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;item&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;journal&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;qty&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">25</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;size&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>        <span class="hljs-attr">&quot;h&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">14</span><span class="hljs-punctuation">,</span><br>        <span class="hljs-attr">&quot;w&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">21</span><br>    <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;status&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;A&quot;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p><code>$slice</code>:用于选择返回数组的范围<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/operator/projection/slice/#proj._S_slice">$slice (projection) — MongoDB Manual</a></p>
+<h3 id="查询空字段或缺少的字段"><a href="#查询空字段或缺少的字段" class="headerlink" title="查询空字段或缺少的字段"></a>查询空字段或缺少的字段</h3><p>有如下两条数据：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.insertMany(<span class="hljs-punctuation">[</span><br>   <span class="hljs-punctuation">&#123;</span> _id<span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span> item<span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><br>   <span class="hljs-punctuation">&#123;</span> _id<span class="hljs-punctuation">:</span> <span class="hljs-number">2</span> <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">]</span>)<br></code></pre></td></tr></table></figure>
+
+<p>查询item为null或item不存在的文档：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">null</span></span> <span class="hljs-punctuation">&#125;</span> )<br></code></pre></td></tr></table></figure>
+
+<p>查询item为null的文档：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/operator/query/type/#op._S_type">$type</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> item <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> $type<span class="hljs-punctuation">:</span> <span class="hljs-number">10</span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">&#125;</span> )<br></code></pre></td></tr></table></figure>
+
+<p>查询item不存在的文档（不包含null）<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/operator/query/exists/#op._S_exists">$exists</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.find( <span class="hljs-punctuation">&#123;</span> item <span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> $exists<span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span> <span class="hljs-punctuation">&#125;</span> <span class="hljs-punctuation">&#125;</span> )<br></code></pre></td></tr></table></figure>
+
+<h2 id="Update"><a href="#Update" class="headerlink" title="Update"></a>Update</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/update-methods/">Update Methods — MongoDB Manual</a></p>
+<p>更新匹配到的第一条记录：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/method/db.collection.updateOne/#db.collection.updateOne">db.collection.updateOne()</a></p>
+<p>更新所有匹配的记录：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/method/db.collection.updateMany/#db.collection.updateMany">db.collection.updateMany()</a></p>
+<p>替换匹配的第一条记录：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/method/db.collection.replaceOne/#db.collection.replaceOne"><code>db.collection.replaceOne()</code></a>.（除了_id都替换为新内容，如果需要更换_Id，请参照原文）</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs json">db.inventory.updateOne(<br>   <span class="hljs-punctuation">&#123;</span> item<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;paper&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-comment">//过滤记录</span><br>   <span class="hljs-punctuation">&#123;</span><br>     $set<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> <span class="hljs-attr">&quot;size.uom&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;cm&quot;</span><span class="hljs-punctuation">,</span> status<span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;P&quot;</span> <span class="hljs-punctuation">&#125;</span><span class="hljs-punctuation">,</span><span class="hljs-comment">//迭代器</span><br>     $currentDate<span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span> lastModified<span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span> <span class="hljs-punctuation">&#125;</span><span class="hljs-comment">//时间迭代器</span><br>   <span class="hljs-punctuation">&#125;</span><br>)<br></code></pre></td></tr></table></figure>
+
+<p>The update operation:</p>
+<ul>
+<li>uses the <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/operator/update/set/#up._S_set"><code>$set</code></a> operator to update the value of the <code>size.uom</code> field to <code>&quot;cm&quot;</code> and the value of the <code>status</code> field to <code>&quot;P&quot;</code>,</li>
+<li>uses the <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/operator/update/currentDate/#up._S_currentDate"><code>$currentDate</code></a> operator to update the value of the <code>lastModified</code> field to the current date. If <code>lastModified</code> field does not exist, <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/operator/update/currentDate/#up._S_currentDate"><code>$currentDate</code></a> will create the field. See <a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/operator/update/currentDate/#up._S_currentDate"><code>$currentDate</code></a> for details.</li>
+</ul>
+<p>更新操作具有原子性、_id不变、索引不变等特性，请参照原文：<a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/tutorial/update-documents/">Update Documents</a></p>
+<h2 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/tutorial/remove-documents/">Delete Documents — MongoDB Manual</a></p>
+<p>匹配后直接删除就是了，没啥好讲的</p>
+<h2 id="其他内容"><a href="#其他内容" class="headerlink" title="其他内容"></a>其他内容</h2><p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/core/bulk-write-operations/">Bulk Write Operations — MongoDB Manual</a> 使用bulk一次性执行多条CRUD操作，可以选择有序或无需插入。bulk操作中，只要出现一次异常，则剩余的操作都不会执行。</p>
+<p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/core/retryable-writes/">Retryable Writes — MongoDB Manual</a>配置可重试的写</p>
+<p><a target="_blank" rel="noopener" href="https://www.mongodb.com/docs/v3.6/reference/sql-comparison/">SQL to MongoDB Mapping Chart — MongoDB Manual</a>SQL和MongoShell语句的对应关系</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Mongodb/">#Mongodb</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Mongodb原生CRUD操作（Mongo shell）</div>
+      <div>https://www.zenithzone.top/2023/08/08/Mongodb原生CRUD操作（Mongo shell）/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>haonan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/18/MySQL%E7%B4%A2%E5%BC%95/" title="MySQL索引">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MySQL索引</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/04/03/ideaVim%E8%87%AA%E7%94%A8%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="idea vim自用配置文件">
+                        <span class="hidden-mobile">idea vim自用配置文件</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

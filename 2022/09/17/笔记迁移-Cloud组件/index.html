@@ -1,0 +1,1191 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <link rel="icon" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="haonan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="时间紧凑，只做应用的笔记Boot发送HTTP请求配置类或者启动类引入并注册RestTemplate 1234@Bean RestTemplate restTemplate()&amp;#123;     return  new RestTemplate(); &amp;#125;  使用： 12345678910111213public Order queryOrderById(Long orderId) &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="笔记迁移-Cloud组件">
+<meta property="og:url" content="https://www.zenithzone.top/2022/09/17/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB-Cloud%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:site_name" content="zenithzone">
+<meta property="og:description" content="时间紧凑，只做应用的笔记Boot发送HTTP请求配置类或者启动类引入并注册RestTemplate 1234@Bean RestTemplate restTemplate()&amp;#123;     return  new RestTemplate(); &amp;#125;  使用： 12345678910111213public Order queryOrderById(Long orderId) &amp;#1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-13-f3e56291945c98aa4c4f7eb62fb5b0cf-202210172020671-87e46f.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-18-3bcf325af658b6c7adffc20fc81596ea-202210172020830-5b0f3b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-21-0b05d98aa7e1e5e523dccd2302b5f2fe-202210172020035-b3095b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-27-6786d07fcbbe27145db6c5af11b2a0ac-202210172021192-72393e.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-31-1d8fe0f32221891ef14f386a0255fa1d-202210172021551-c7573b.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-37-dc898098fb9a69c90d6241c2ab9a907a-202210172021577-f2ec1d.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-41-8afbfed3604d9acee48093264ff4ba22-202210172021326-cc3c68.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-45-00d6b8b2d434ebf86225e9d7ae82b96b-202210172021034-1da7c4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-49-6ab7c152a38048bc62287ad69c6c9ff0-202210172021847-ea3009.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-02-51e55cf79771dbe6ed6bdd4a2357bdbd-202210172021953-f5cb8d.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-08-4c319fe58161567356bf064e478ec94b-202210172021856-a715f9.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-13-440358ef038f9f512f4614b3e2e6cf67-202210172021736-8af026.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-17-8f4e7b6d3a56996ecddc477e4e943026-202210172022599-f81c68.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-20-1f27b2209f34e30ae67298dd4c849380-202210172022127-4ce5dc.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-24-b18117068a776af0b3ac32a9d646ab01-202210172022065-e37b5c.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-30-9168b2977c60ba12ed539da94562358e-202210172022071-5ee7ec.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-35-caf5ea851dbfcfa184144328ededa105-202210172022908-39b648.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-40-e9daff6e9b9d8cdaa128403616b4bb7a-202210172022191-01d0d3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-46-b4c77eafe738297780531f81713c91ed-202210172022869-39c15e.png">
+<meta property="article:published_time" content="2022-09-17T01:39:28.000Z">
+<meta property="article:modified_time" content="2024-05-14T08:33:12.486Z">
+<meta property="article:author" content="haonan">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="微服务">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-13-f3e56291945c98aa4c4f7eb62fb5b0cf-202210172020671-87e46f.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>笔记迁移-Cloud组件 - zenithzone</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.zenithzone.top","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zenithzone</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-20-15-dfc00bcbcca954cc0ca25a95e07ae3b8-202210171933394-65530d.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="笔记迁移-Cloud组件"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-17 09:39" pubdate>
+          2022年9月17日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          16k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          132 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">笔记迁移-Cloud组件</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="时间紧凑，只做应用的笔记"><a href="#时间紧凑，只做应用的笔记" class="headerlink" title="时间紧凑，只做应用的笔记"></a>时间紧凑，只做应用的笔记</h1><h1 id="Boot发送HTTP请求"><a href="#Boot发送HTTP请求" class="headerlink" title="Boot发送HTTP请求"></a>Boot发送HTTP请求</h1><p>配置类或者启动类引入并注册RestTemplate</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br> RestTemplate <span class="hljs-title function_">restTemplate</span><span class="hljs-params">()</span>&#123;<br>     <span class="hljs-keyword">return</span>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestTemplate</span>();<br> &#125;<br></code></pre></td></tr></table></figure>
+
+<p>使用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> Order <span class="hljs-title function_">queryOrderById</span><span class="hljs-params">(Long orderId)</span> &#123;<br>    <span class="hljs-comment">// 1.查询订单</span><br>    <span class="hljs-type">Order</span> <span class="hljs-variable">order</span> <span class="hljs-operator">=</span> orderMapper.findById(orderId);<br>    <span class="hljs-comment">//2.1发送http请求</span><br>    <span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;http://localhost:8081/user/&quot;</span>+order.getUserId();<br>    <span class="hljs-comment">//2.2获取user对象</span><br>    <span class="hljs-comment">//本来得到的json对象，这种方式自动反序列化为user类</span><br>    <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> restTemplate.getForObject(url, User.class);<br>    <span class="hljs-comment">//3 封装user对象</span><br>    order.setUser(user);<br>    <span class="hljs-comment">// 4.返回</span><br>    <span class="hljs-keyword">return</span> order;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h1 id="Eureka注册中心"><a href="#Eureka注册中心" class="headerlink" title="Eureka注册中心"></a>Eureka注册中心</h1><h2 id="一、serve端"><a href="#一、serve端" class="headerlink" title="一、serve端"></a>一、serve端</h2><h3 id="1、新建Eureka服务模块"><a href="#1、新建Eureka服务模块" class="headerlink" title="1、新建Eureka服务模块"></a>1、新建Eureka服务模块</h3><h3 id="2、引入依赖"><a href="#2、引入依赖" class="headerlink" title="2、引入依赖"></a>2、引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-server<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3、注册服务"><a href="#3、注册服务" class="headerlink" title="3、注册服务"></a>3、注册服务</h3><p>application.yml:</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">10086</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">eureka-serve</span><br><span class="hljs-attr">eureka:</span><br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">service-url:</span><br>      <span class="hljs-attr">defaultZone:</span> <span class="hljs-string">http://localhost:10086/eureka</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4、运行结果"><a href="#4、运行结果" class="headerlink" title="4、运行结果"></a>4、运行结果</h3><p>这里是已经完成服务注册了</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-13-f3e56291945c98aa4c4f7eb62fb5b0cf-202210172020671-87e46f.png" srcset="/img/loading.gif" lazyload alt="image-20220727154723653"></p>
+<h2 id="二、客户端"><a href="#二、客户端" class="headerlink" title="二、客户端"></a>二、客户端</h2><h3 id="1、引入依赖"><a href="#1、引入依赖" class="headerlink" title="1、引入依赖"></a>1、引入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-netflix-eureka-client<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2、配置文件"><a href="#2、配置文件" class="headerlink" title="2、配置文件"></a>2、配置文件</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">userservice</span><br><span class="hljs-attr">eureka:</span><br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">service-url:</span><br>      <span class="hljs-attr">defaultZone:</span> <span class="hljs-string">http://127.0.0.1:10086/eureka</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="3、idea多个启动实例"><a href="#3、idea多个启动实例" class="headerlink" title="3、idea多个启动实例"></a>3、idea多个启动实例</h3><p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-18-3bcf325af658b6c7adffc20fc81596ea-202210172020830-5b0f3b.png" srcset="/img/loading.gif" lazyload alt="image-20220727155122128"></p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-21-0b05d98aa7e1e5e523dccd2302b5f2fe-202210172020035-b3095b.png" srcset="/img/loading.gif" lazyload alt="image-20220727155143306"></p>
+<h3 id="4、RsetTemplete启动负载均衡"><a href="#4、RsetTemplete启动负载均衡" class="headerlink" title="4、RsetTemplete启动负载均衡"></a>4、RsetTemplete启动负载均衡</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@MapperScan(&quot;cn.itcast.order.mapper&quot;)</span><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderApplication</span> &#123;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(OrderApplication.class, args);<br>    &#125;<br><br>   <span class="hljs-meta">@Bean</span><br>   <span class="hljs-meta">@LoadBalanced</span> <span class="hljs-comment">//启动负载均衡</span><br>    RestTemplate <span class="hljs-title function_">restTemplate</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestTemplate</span>();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>修改RestTemplate的使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">//2.1发送http请求</span><br><span class="hljs-type">String</span> <span class="hljs-variable">url</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;http://userservice/user/&quot;</span>+order.getUserId();<br></code></pre></td></tr></table></figure>
+
+<p>自动实现了负载均衡</p>
+<h1 id="Ribbon负载均衡"><a href="#Ribbon负载均衡" class="headerlink" title="Ribbon负载均衡"></a>Ribbon负载均衡</h1><p>启动：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br>   <span class="hljs-meta">@LoadBalanced</span> <span class="hljs-comment">//启动负载均衡</span><br>    RestTemplate <span class="hljs-title function_">restTemplate</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span>  <span class="hljs-keyword">new</span> <span class="hljs-title class_">RestTemplate</span>();<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>默认使用轮询的负载均衡策略</p>
+<h3 id="自定义负载均衡策略"><a href="#自定义负载均衡策略" class="headerlink" title="自定义负载均衡策略"></a>自定义负载均衡策略</h3><p>通过定义IRule实现可以修改负载均衡规则，有两种方式：</p>
+<ol>
+<li>代码方式：在order-service中的OrderApplication类中，定义一个新的IRule：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Bean</span><br><span class="hljs-keyword">public</span> IRule <span class="hljs-title function_">randomRule</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RandomRule</span>();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<ol start="2">
+<li>配置文件方式：在order-service的application.yml文件中，添加新的配置也可以修改规则：</li>
+</ol>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">userservice:</span> <span class="hljs-comment"># 给某个微服务配置负载均衡规则，这里是userservice服务</span><br>  <span class="hljs-attr">ribbon:</span><br>    <span class="hljs-attr">NFLoadBalancerRuleClassName:</span> <span class="hljs-string">com.netflix.loadbalancer.RandomRule</span> <span class="hljs-comment"># 负载均衡规则 </span><br></code></pre></td></tr></table></figure>
+
+
+
+<blockquote>
+<p><strong>注意</strong>，一般用默认的负载均衡规则，不做修改。</p>
+</blockquote>
+<h2 id="饥饿加载"><a href="#饥饿加载" class="headerlink" title="饥饿加载"></a>饥饿加载</h2><p>Ribbon默认是采用懒加载，即第一次访问时才会去创建LoadBalanceClient，请求时间会很长。</p>
+<p>而饥饿加载则会在项目启动时创建，降低第一次访问的耗时，通过下面配置开启饥饿加载：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">ribbon:</span><br>  <span class="hljs-attr">eager-load:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">clients:</span> <span class="hljs-string">userservice</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="nacos注册中心"><a href="#nacos注册中心" class="headerlink" title="nacos注册中心"></a>nacos注册中心</h1><p>windows启动：</p>
+<p>bin目录下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">startup.cmd -m standalone<br></code></pre></td></tr></table></figure>
+
+<p>默认网站：<a target="_blank" rel="noopener" href="http://localhost:8848/nacos">http://localhost:8848/nacos</a></p>
+<h2 id="微服务依赖"><a href="#微服务依赖" class="headerlink" title="微服务依赖"></a>微服务依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="服务注册到nacos"><a href="#服务注册到nacos" class="headerlink" title="服务注册到nacos"></a>服务注册到nacos</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="集群配置"><a href="#集群配置" class="headerlink" title="集群配置"></a>集群配置</h2><p>默认的<code>ZoneAvoidanceRule</code>并不能实现根据同集群优先来实现负载均衡。</p>
+<p>因此Nacos中提供了一个<code>NacosRule</code>的实现，可以优先从同集群中挑选实例。</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">cluster-name:</span> <span class="hljs-string">HZ</span> <span class="hljs-comment"># 集群名称</span><br></code></pre></td></tr></table></figure>
+
+<p>2）修改负载均衡规则</p>
+<p>修改order-service的application.yml文件，修改负载均衡规则：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">userservice:</span><br>  <span class="hljs-attr">ribbon:</span><br>    <span class="hljs-attr">NFLoadBalancerRuleClassName:</span> <span class="hljs-string">com.alibaba.cloud.nacos.ribbon.NacosRule</span> <span class="hljs-comment"># 负载均衡规则 </span><br></code></pre></td></tr></table></figure>
+
+<h2 id="权重配置"><a href="#权重配置" class="headerlink" title="权重配置"></a>权重配置</h2><p>实际部署中会出现这样的场景：</p>
+<p>服务器设备性能有差异，部分实例所在机器性能较好，另一些较差，我们希望性能好的机器承担更多的用户请求。</p>
+<p>但默认情况下NacosRule是同集群内随机挑选，不会考虑机器的性能问题。</p>
+<p>因此，Nacos提供了权重配置来控制访问频率，权重越大则访问频率越高。</p>
+<p>在nacos控制台，找到user-service的实例列表，点击编辑，即可修改权重：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-27-6786d07fcbbe27145db6c5af11b2a0ac-202210172021192-72393e.png" srcset="/img/loading.gif" lazyload alt="image-20220728141210777"></p>
+<p>权重越低被访问的概率就越低，可用于服务维护或升级</p>
+<p><strong>注意</strong>：如果权重修改为0，则该实例永远不会被访问</p>
+<h2 id="环境隔离"><a href="#环境隔离" class="headerlink" title="环境隔离"></a>环境隔离</h2><p>Nacos提供了namespace来实现环境隔离功能。</p>
+<ul>
+<li>nacos中可以有多个namespace</li>
+<li>namespace下可以有group、service等</li>
+<li>不同namespace之间相互隔离，例如不同namespace的服务互相不可见</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-31-1d8fe0f32221891ef14f386a0255fa1d-202210172021551-c7573b.png" srcset="/img/loading.gif" lazyload alt="image-20220728141406852"></p>
+<p>可在nacos的网页修改</p>
+<h3 id="给微服务配置namespace"><a href="#给微服务配置namespace" class="headerlink" title="给微服务配置namespace"></a>给微服务配置namespace</h3><p>给微服务配置namespace只能通过修改配置来实现。</p>
+<p>例如，修改order-service的application.yml文件：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">cluster-name:</span> <span class="hljs-string">HZ</span><br>        <span class="hljs-attr">namespace:</span> <span class="hljs-string">492a7d5d-237b-46a1-a99a-fa8e98e4b0f9</span> <span class="hljs-comment"># 命名空间，填ID</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="配置永久实例"><a href="#配置永久实例" class="headerlink" title="配置永久实例"></a>配置永久实例</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">ephemeral:</span> <span class="hljs-literal">false</span> <span class="hljs-comment"># 设置为非临时实例</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="nacos-和-eureka的区别"><a href="#nacos-和-eureka的区别" class="headerlink" title="nacos 和 eureka的区别"></a>nacos 和 eureka的区别</h2><ul>
+<li><p>Nacos与eureka的共同点</p>
+<ul>
+<li>都支持服务注册和服务拉取</li>
+<li>都支持服务提供者心跳方式做健康检测</li>
+</ul>
+</li>
+<li><p>Nacos与Eureka的区别</p>
+<ul>
+<li>Nacos支持服务端主动检测提供者状态：临时实例采用心跳模式，非临时实例采用主动检测模式</li>
+<li>临时实例心跳不正常会被剔除，非临时实例则不会被剔除</li>
+<li>Nacos支持服务列表变更的消息推送模式，服务列表更新更及时</li>
+<li>Nacos集群默认采用AP方式，当集群中存在非临时实例时，采用CP模式；Eureka采用AP方式</li>
+</ul>
+</li>
+</ul>
+<h1 id="nacos配置中心"><a href="#nacos配置中心" class="headerlink" title="nacos配置中心"></a>nacos配置中心</h1><p>将一些需要频繁修改的配置让nacos管理</p>
+<h2 id="1、nacos添加配置文件"><a href="#1、nacos添加配置文件" class="headerlink" title="1、nacos添加配置文件"></a>1、nacos添加配置文件</h2><p>添加配置文件：userservice-dev.yaml</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-37-dc898098fb9a69c90d6241c2ab9a907a-202210172021577-f2ec1d.png" srcset="/img/loading.gif" lazyload alt="image-20220728145705576"></p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-41-8afbfed3604d9acee48093264ff4ba22-202210172021326-cc3c68.png" srcset="/img/loading.gif" lazyload alt="image-20220728145724698"></p>
+<h2 id="2、微服务添加依赖"><a href="#2、微服务添加依赖" class="headerlink" title="2、微服务添加依赖"></a>2、微服务添加依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--nacos配置管理依赖--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="3、添加bootstrap-yml文件"><a href="#3、添加bootstrap-yml文件" class="headerlink" title="3、添加bootstrap.yml文件"></a>3、添加bootstrap.yml文件</h2><p>该文件和application在同一目录，优先级大于application</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-45-00d6b8b2d434ebf86225e9d7ae82b96b-202210172021034-1da7c4.png" srcset="/img/loading.gif" lazyload alt="img"></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">userservice</span> <span class="hljs-comment"># 服务名称</span><br>  <span class="hljs-attr">profiles:</span><br>    <span class="hljs-attr">active:</span> <span class="hljs-string">dev</span> <span class="hljs-comment">#开发环境，这里是dev </span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span> <span class="hljs-comment"># Nacos地址</span><br>      <span class="hljs-attr">config:</span><br>        <span class="hljs-attr">file-extension:</span> <span class="hljs-string">yaml</span> <span class="hljs-comment"># 文件后缀名</span><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-11-49-6ab7c152a38048bc62287ad69c6c9ff0-202210172021847-ea3009.png" srcset="/img/loading.gif" lazyload alt="image-20220728145913510"></p>
+<p>添加完后，将application中重复的配置删除</p>
+<h2 id="4、读取nacos配置"><a href="#4、读取nacos配置" class="headerlink" title="4、读取nacos配置"></a>4、读取nacos配置</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">    如果bootstrap配置成功，能够读取到nacos配置的值</span><br><span class="hljs-comment">    */</span><br><span class="hljs-meta">@Value(&quot;$&#123;pattern.dateformat&#125;&quot;)</span><br><span class="hljs-keyword">private</span> String dateformat;<br></code></pre></td></tr></table></figure>
+
+<h2 id="5、测试"><a href="#5、测试" class="headerlink" title="5、测试"></a>5、测试</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment">* 测试是否读取到了nacos中的配置</span><br><span class="hljs-comment">*/</span><br><span class="hljs-meta">@GetMapping(&quot;/now&quot;)</span><br><span class="hljs-keyword">public</span> String <span class="hljs-title function_">now</span><span class="hljs-params">()</span>&#123;<br>    <span class="hljs-keyword">return</span> LocalDateTime.now().format(DateTimeFormatter.ofPattern(dateformat));<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="6、配置的热更新"><a href="#6、配置的热更新" class="headerlink" title="6、配置的热更新"></a>6、配置的热更新</h2><h3 id="1-2-1-方式一"><a href="#1-2-1-方式一" class="headerlink" title="1.2.1.方式一"></a>1.2.1.方式一</h3><p>在@Value注入的变量所在类上添加注解@RefreshScope：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-02-51e55cf79771dbe6ed6bdd4a2357bdbd-202210172021953-f5cb8d.png" srcset="/img/loading.gif" lazyload alt="image-20210714171036335"></p>
+<h3 id="1-2-2-方式二"><a href="#1-2-2-方式二" class="headerlink" title="1.2.2.方式二"></a>1.2.2.方式二</h3><p>使用@ConfigurationProperties注解代替@Value注解。</p>
+<p>在user-service服务中，添加一个类，读取patterrn.dateformat属性：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.user.config;<br><br><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> org.springframework.boot.context.properties.ConfigurationProperties;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@ConfigurationProperties(prefix = &quot;pattern&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">PatternProperties</span> &#123;<br>    <span class="hljs-keyword">private</span> String dateformat;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>在UserController中使用这个类代替@Value：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-08-4c319fe58161567356bf064e478ec94b-202210172021856-a715f9.png" srcset="/img/loading.gif" lazyload alt="image-20210714171316124"></p>
+<p>推荐使用这种方式，用的是spring自带的注解，并且代码复用性高</p>
+<h2 id="7、环境共享"><a href="#7、环境共享" class="headerlink" title="7、环境共享"></a>7、环境共享</h2><p>其实微服务启动时，会去nacos读取多个配置文件，例如：</p>
+<ul>
+<li><p><code>[spring.application.name]-[spring.profiles.active].yaml</code>，例如：userservice-dev.yaml</p>
+</li>
+<li><p><code>[spring.application.name].yaml</code>，例如：userservice.yaml</p>
+</li>
+</ul>
+<p>而<code>[spring.application.name].yaml</code>不包含环境，因此可以被多个环境共享。</p>
+<p>下面我们通过案例来测试配置共享</p>
+<h3 id="1）添加一个环境共享配置"><a href="#1）添加一个环境共享配置" class="headerlink" title="1）添加一个环境共享配置"></a>1）添加一个环境共享配置</h3><p>我们在nacos中添加一个userservice.yaml文件：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-13-440358ef038f9f512f4614b3e2e6cf67-202210172021736-8af026.png" srcset="/img/loading.gif" lazyload alt="image-20210714173233650"></p>
+<h3 id="2）在user-service中读取共享配置"><a href="#2）在user-service中读取共享配置" class="headerlink" title="2）在user-service中读取共享配置"></a>2）在user-service中读取共享配置</h3><p>在user-service服务中，修改PatternProperties类，读取新添加的属性：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-17-8f4e7b6d3a56996ecddc477e4e943026-202210172022599-f81c68.png" srcset="/img/loading.gif" lazyload alt="image-20210714173324231"></p>
+<p>在user-service服务中，修改UserController，添加一个方法：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-20-1f27b2209f34e30ae67298dd4c849380-202210172022127-4ce5dc.png" srcset="/img/loading.gif" lazyload alt="image-20210714173721309"></p>
+<h3 id="3）运行两个UserApplication，使用不同的profile"><a href="#3）运行两个UserApplication，使用不同的profile" class="headerlink" title="3）运行两个UserApplication，使用不同的profile"></a>3）运行两个UserApplication，使用不同的profile</h3><h3 id="4）配置共享的优先级"><a href="#4）配置共享的优先级" class="headerlink" title="4）配置共享的优先级"></a>4）配置共享的优先级</h3><p>当nacos、服务本地同时出现相同属性时，优先级有高低之分：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-24-b18117068a776af0b3ac32a9d646ab01-202210172022065-e37b5c.png" srcset="/img/loading.gif" lazyload alt="image-20210714174623557"></p>
+<h1 id="feign替代RestTemplate"><a href="#feign替代RestTemplate" class="headerlink" title="feign替代RestTemplate"></a>feign替代RestTemplate</h1><h2 id="1、引入依赖-1"><a href="#1、引入依赖-1" class="headerlink" title="1、引入依赖"></a>1、引入依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--        feign--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="2、开启feign功能"><a href="#2、开启feign功能" class="headerlink" title="2、开启feign功能"></a>2、开启feign功能</h2><p>在启动类上添加注解</p>
+<p>@EnableFeignClients</p>
+<h2 id="3、编写feign的客户端"><a href="#3、编写feign的客户端" class="headerlink" title="3、编写feign的客户端"></a>3、编写feign的客户端</h2><p>使用了SpringMVC的注解，优雅</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FeignClient(&quot;userservice&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserService</span> &#123;<br>   <span class="hljs-meta">@GetMapping(&quot;/user/&#123;id&#125;&quot;)</span><br>   User <span class="hljs-title function_">findById</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(&quot;id&quot;)</span> Long id)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="4、使用"><a href="#4、使用" class="headerlink" title="4、使用"></a>4、使用</h2><p>不需要再定义url了，就像调用本地接口一样</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Service</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">OrderService</span> &#123;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> OrderMapper orderMapper;<br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> RestTemplate restTemplate;<br><br>    <span class="hljs-meta">@Autowired</span><br>    <span class="hljs-keyword">private</span> UserService userService;<br>    <span class="hljs-keyword">public</span> Order <span class="hljs-title function_">queryOrderById</span><span class="hljs-params">(Long orderId)</span> &#123;<br>        <span class="hljs-comment">// 1.查询订单</span><br>        <span class="hljs-type">Order</span> <span class="hljs-variable">order</span> <span class="hljs-operator">=</span> orderMapper.findById(orderId);<br>        <span class="hljs-comment">//2发送http请求</span><br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> userService.findById(order.getUserId());<br>        <span class="hljs-comment">//3 封装user对象</span><br>        order.setUser(user);<br>        <span class="hljs-comment">// 4.返回</span><br>        <span class="hljs-keyword">return</span> order;<br>    &#125;<br><br><br><span class="hljs-comment">//    public Order queryOrderById(Long orderId) &#123;</span><br><span class="hljs-comment">//        // 1.查询订单</span><br><span class="hljs-comment">//        Order order = orderMapper.findById(orderId);</span><br><span class="hljs-comment">//        //2.1发送http请求</span><br><span class="hljs-comment">//        String url = &quot;http://userservice/user/&quot;+order.getUserId();</span><br><span class="hljs-comment">//        //2.2获取user对象</span><br><span class="hljs-comment">//        User user = restTemplate.getForObject(url, User.class);</span><br><span class="hljs-comment">//        //3 封装user对象</span><br><span class="hljs-comment">//        order.setUser(user);</span><br><span class="hljs-comment">//        // 4.返回</span><br><span class="hljs-comment">//        return order;</span><br><span class="hljs-comment">//    &#125;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>因为feign集成了ribbon，所以自带负载均衡</p>
+<p>并且feign默认开启了失败重试功能</p>
+<h2 id="5、feign配置"><a href="#5、feign配置" class="headerlink" title="5、feign配置"></a>5、feign配置</h2><p>日志默认为none</p>
+<p>Feign可以支持很多的自定义配置，如下表所示：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>作用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>feign.Logger.Level</strong></td>
+<td>修改日志级别</td>
+<td>包含四种不同的级别：NONE、BASIC、HEADERS、FULL</td>
+</tr>
+<tr>
+<td>feign.codec.Decoder</td>
+<td>响应结果的解析器</td>
+<td>http远程调用的结果做解析，例如解析json字符串为java对象</td>
+</tr>
+<tr>
+<td>feign.codec.Encoder</td>
+<td>请求参数编码</td>
+<td>将请求参数编码，便于通过http请求发送</td>
+</tr>
+<tr>
+<td>feign. Contract</td>
+<td>支持的注解格式</td>
+<td>默认是SpringMVC的注解</td>
+</tr>
+<tr>
+<td>feign. Retryer</td>
+<td>失败重试机制</td>
+<td>请求失败的重试机制，默认是没有，不过会使用Ribbon的重试</td>
+</tr>
+</tbody></table>
+<p>一般情况下，默认值就能满足我们使用，如果要自定义时，只需要创建自定义的@Bean覆盖默认Bean即可。</p>
+<p>下面以日志为例来演示如何自定义配置。</p>
+<h3 id="配置文件方式"><a href="#配置文件方式" class="headerlink" title="配置文件方式"></a>配置文件方式</h3><p>基于配置文件修改feign的日志级别可以针对单个服务：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">feign:</span>  <br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">config:</span> <br>      <span class="hljs-attr">userservice:</span> <span class="hljs-comment"># 针对某个微服务的配置</span><br>        <span class="hljs-attr">loggerLevel:</span> <span class="hljs-string">FULL</span> <span class="hljs-comment">#  日志级别 </span><br></code></pre></td></tr></table></figure>
+
+<p>也可以针对所有服务：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">feign:</span>  <br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">config:</span> <br>      <span class="hljs-attr">default:</span> <span class="hljs-comment"># 这里用default就是全局配置，如果是写服务名称，则是针对某个微服务的配置</span><br>        <span class="hljs-attr">loggerLevel:</span> <span class="hljs-string">FULL</span> <span class="hljs-comment">#  日志级别 </span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>而日志的级别分为四种：</p>
+<ul>
+<li>NONE：不记录任何日志信息，这是默认值。</li>
+<li>BASIC：仅记录请求的方法，URL以及响应状态码和执行时间</li>
+<li>HEADERS：在BASIC的基础上，额外记录了请求和响应的头信息</li>
+<li>FULL：记录所有请求和响应的明细，包括头信息、请求体、元数据。</li>
+</ul>
+<h3 id="Java代码方式"><a href="#Java代码方式" class="headerlink" title="Java代码方式"></a>Java代码方式</h3><p>也可以基于Java代码来修改日志级别，先声明一个类，然后声明一个Logger.Level的对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">DefaultFeignConfiguration</span>  &#123;<br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Logger.Level <span class="hljs-title function_">feignLogLevel</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> Logger.Level.BASIC; <span class="hljs-comment">// 日志级别为BASIC</span><br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>如果要<strong>全局生效</strong>，将其放到启动类的@EnableFeignClients这个注解中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableFeignClients(defaultConfiguration = DefaultFeignConfiguration .class)</span> <br></code></pre></td></tr></table></figure>
+
+
+
+<p>如果是<strong>局部生效</strong>，则把它放到对应的@FeignClient这个注解中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FeignClient(value = &quot;userservice&quot;, configuration = DefaultFeignConfiguration .class)</span> <br></code></pre></td></tr></table></figure>
+
+<h2 id="6、feign调优"><a href="#6、feign调优" class="headerlink" title="6、feign调优"></a>6、feign调优</h2><p>feign虽然已经很好用，但是不够完美</p>
+<p>Feign底层发起http请求，依赖于其它的框架。其底层客户端实现包括：</p>
+<p>•URLConnection：默认实现，不支持连接池</p>
+<p>•Apache HttpClient ：支持连接池</p>
+<p>•OKHttp：支持连接池</p>
+<p>因此提高Feign的性能主要手段就是使用<strong>连接池</strong>代替默认的URLConnection。</p>
+<p>这里我们用Apache的HttpClient来演示。</p>
+<p>1）引入依赖</p>
+<p>在order-service的pom文件中引入Apache的HttpClient依赖：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--httpClient的依赖 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.openfeign<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>feign-httpclient<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>2）配置连接池</p>
+<p>在order-service的application.yml中添加配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">feign:</span><br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">config:</span><br>      <span class="hljs-attr">default:</span> <span class="hljs-comment"># default全局的配置</span><br>        <span class="hljs-attr">loggerLevel:</span> <span class="hljs-string">BASIC</span> <span class="hljs-comment"># 日志级别，BASIC就是基本的请求和响应信息</span><br>  <span class="hljs-attr">httpclient:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 开启feign对HttpClient的支持</span><br>    <span class="hljs-attr">max-connections:</span> <span class="hljs-number">200</span> <span class="hljs-comment"># 最大的连接数</span><br>    <span class="hljs-attr">max-connections-per-route:</span> <span class="hljs-number">50</span> <span class="hljs-comment"># 每个路径的最大连接数  #这两个数据需要经过压力测试得到，这里瞎几把写</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="7、feign最佳实践"><a href="#7、feign最佳实践" class="headerlink" title="7、feign最佳实践"></a>7、feign最佳实践</h2><h3 id="构建模块"><a href="#构建模块" class="headerlink" title="构建模块"></a>构建模块</h3><p>将要用到的client全部放到一个模块，其他模块再依赖这个模块就行</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-30-9168b2977c60ba12ed539da94562358e-202210172022071-5ee7ec.png" srcset="/img/loading.gif" lazyload alt="image-20220728173611921"></p>
+<p>一样的，feign-api模块添加依赖，并修改配置文件</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- feign依赖--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--httpClient的依赖 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>io.github.openfeign<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>feign-httpclient<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">feign:</span><br>  <span class="hljs-attr">client:</span><br>    <span class="hljs-attr">config:</span><br>      <span class="hljs-attr">default:</span> <span class="hljs-comment"># default全局的配置</span><br>        <span class="hljs-attr">loggerLevel:</span> <span class="hljs-string">NONE</span> <span class="hljs-comment"># 日志级别，BASIC就是基本的请求和响应信息</span><br>  <span class="hljs-attr">httpclient:</span><br>    <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 开启feign对HttpClient的支持</span><br>    <span class="hljs-attr">max-connections:</span> <span class="hljs-number">200</span> <span class="hljs-comment"># 最大的连接数</span><br>    <span class="hljs-attr">max-connections-per-route:</span> <span class="hljs-number">50</span> <span class="hljs-comment"># 每个路径的最大连接数</span><br></code></pre></td></tr></table></figure>
+
+<p>需要的实体类和发http请求的client接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">User</span> &#123;<br>    <span class="hljs-keyword">private</span> Long id;<br>    <span class="hljs-keyword">private</span> String username;<br>    <span class="hljs-keyword">private</span> String address;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@FeignClient(&quot;userservice&quot;)</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">UserService</span> &#123;<br>   <span class="hljs-meta">@GetMapping(&quot;/user/&#123;id&#125;&quot;)</span><br>   User <span class="hljs-title function_">findById</span><span class="hljs-params">(<span class="hljs-meta">@PathVariable(&quot;id&quot;)</span> Long id)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="其他模块使用这个通用模块"><a href="#其他模块使用这个通用模块" class="headerlink" title="其他模块使用这个通用模块"></a>其他模块使用这个通用模块</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>cn.itcast.demo<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>feign-api<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>启动会有bug，因为扫不到client，需要在启动类中配置</p>
+<p>方式一：</p>
+<p>指定Feign应该扫描的包：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableFeignClients(basePackages = &quot;cn.itcast.feign.clients&quot;)</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>方式二：</p>
+<p>指定需要加载的Client接口：（一般用这个方式）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableFeignClients(clients = &#123;UserClient.class&#125;)</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="gateWay网关"><a href="#gateWay网关" class="headerlink" title="gateWay网关"></a>gateWay网关</h1><h2 id="为什么需要网关"><a href="#为什么需要网关" class="headerlink" title="为什么需要网关"></a>为什么需要网关</h2><p>Gateway网关是我们服务的守门神，所有微服务的统一入口。</p>
+<p>网关的<strong>核心功能特性</strong>：</p>
+<ul>
+<li>请求路由</li>
+<li>权限控制</li>
+<li>限流</li>
+</ul>
+<p>架构图：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-35-caf5ea851dbfcfa184144328ededa105-202210172022908-39b648.png" srcset="/img/loading.gif" lazyload alt="image-20210714210131152"></p>
+<p><strong>权限控制</strong>：网关作为微服务入口，需要校验用户是是否有请求资格，如果没有则进行拦截。</p>
+<p><strong>路由和负载均衡</strong>：一切请求都必须先经过gateway，但网关不处理业务，而是根据某种规则，把请求转发到某个微服务，这个过程叫做路由。当然路由的目标服务有多个时，还需要做负载均衡。</p>
+<p><strong>限流</strong>：当请求流量过高时，在网关中按照下流的微服务能够接受的速度来放行请求，避免服务压力过大。</p>
+<p>在SpringCloud中网关的实现包括两种：</p>
+<ul>
+<li>gateway</li>
+<li>zuul</li>
+</ul>
+<p>Zuul是基于Servlet的实现，属于阻塞式编程。而SpringCloudGateway则是基于Spring5中提供的WebFlux，属于响应式编程的实现，具备更好的性能。</p>
+<h2 id="1、创建gateway模块"><a href="#1、创建gateway模块" class="headerlink" title="1、创建gateway模块"></a>1、创建gateway模块</h2><p>引入依赖并配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--网关--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!--nacos服务发现依赖--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">10010</span> <span class="hljs-comment"># 网关端口</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">gateway</span> <span class="hljs-comment"># 服务名称</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">server-addr:</span> <span class="hljs-string">localhost:8848</span> <span class="hljs-comment"># nacos地址</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">routes:</span> <span class="hljs-comment"># 网关路由配置</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">user-service</span> <span class="hljs-comment"># 路由id，自定义，只要唯一即可</span><br>          <span class="hljs-comment"># uri: http://127.0.0.1:8081 # 路由的目标地址 http就是固定地址</span><br>          <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://userservice</span> <span class="hljs-comment"># 路由的目标地址 lb就是负载均衡，后面跟服务名称</span><br>          <span class="hljs-attr">predicates:</span> <span class="hljs-comment"># 路由断言，也就是判断请求是否符合路由规则的条件</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/user/**</span> <span class="hljs-comment"># 这个是按照路径匹配，只要以/user/开头就符合要求</span><br></code></pre></td></tr></table></figure>
+
+<p>启动类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.gateway;<br><br><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;<br><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;<br><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GatewayApplication</span> &#123;<br><br>	<span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>		SpringApplication.run(GatewayApplication.class, args);<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h2 id="2、网关路由的流程图"><a href="#2、网关路由的流程图" class="headerlink" title="2、网关路由的流程图"></a>2、网关路由的流程图</h2><p>整个访问的流程如下：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-40-e9daff6e9b9d8cdaa128403616b4bb7a-202210172022191-01d0d3.png" srcset="/img/loading.gif" lazyload alt="image-20210714211742956"></p>
+<h2 id="3、断言工厂"><a href="#3、断言工厂" class="headerlink" title="3、断言工厂"></a>3、断言工厂</h2><p>我们在配置文件中写的断言规则只是字符串，这些字符串会被Predicate Factory读取并处理，转变为路由判断的条件</p>
+<p>例如Path&#x3D;&#x2F;user&#x2F;**是按照路径匹配，这个规则是由</p>
+<p><code>org.springframework.cloud.gateway.handler.predicate.PathRoutePredicateFactory</code>类来</p>
+<p>处理的，像这样的断言工厂在SpringCloudGateway还有十几个:</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>说明</strong></th>
+<th><strong>示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>After</td>
+<td>是某个时间点后的请求</td>
+<td>-  After&#x3D;2037-01-20T17:42:47.789-07:00[America&#x2F;Denver]</td>
+</tr>
+<tr>
+<td>Before</td>
+<td>是某个时间点之前的请求</td>
+<td>-  Before&#x3D;2031-04-13T15:14:47.433+08:00[Asia&#x2F;Shanghai]</td>
+</tr>
+<tr>
+<td>Between</td>
+<td>是某两个时间点之前的请求</td>
+<td>-  Between&#x3D;2037-01-20T17:42:47.789-07:00[America&#x2F;Denver],  2037-01-21T17:42:47.789-07:00[America&#x2F;Denver]</td>
+</tr>
+<tr>
+<td>Cookie</td>
+<td>请求必须包含某些cookie</td>
+<td>- Cookie&#x3D;chocolate, ch.p</td>
+</tr>
+<tr>
+<td>Header</td>
+<td>请求必须包含某些header</td>
+<td>- Header&#x3D;X-Request-Id, \d+</td>
+</tr>
+<tr>
+<td>Host</td>
+<td>请求必须是访问某个host（域名）</td>
+<td>-  Host&#x3D;<strong>.somehost.org,</strong>.anotherhost.org</td>
+</tr>
+<tr>
+<td>Method</td>
+<td>请求方式必须是指定方式</td>
+<td>- Method&#x3D;GET,POST</td>
+</tr>
+<tr>
+<td>Path</td>
+<td>请求路径必须符合指定规则</td>
+<td>- Path&#x3D;&#x2F;red&#x2F;{segment},&#x2F;blue&#x2F;**</td>
+</tr>
+<tr>
+<td>Query</td>
+<td>请求参数必须包含指定参数</td>
+<td>- Query&#x3D;name, Jack或者-  Query&#x3D;name</td>
+</tr>
+<tr>
+<td>RemoteAddr</td>
+<td>请求者的ip必须是指定范围</td>
+<td>- RemoteAddr&#x3D;192.168.1.1&#x2F;24</td>
+</tr>
+<tr>
+<td>Weight</td>
+<td>权重处理</td>
+<td></td>
+</tr>
+</tbody></table>
+<p>我们只需要掌握Path这种路由工程就可以了。</p>
+<h2 id="4、过滤器工厂"><a href="#4、过滤器工厂" class="headerlink" title="4、过滤器工厂"></a>4、过滤器工厂</h2><h3 id="路由过滤器的种类"><a href="#路由过滤器的种类" class="headerlink" title="路由过滤器的种类"></a>路由过滤器的种类</h3><p>Spring提供了31种不同的路由过滤器工厂。例如：</p>
+<table>
+<thead>
+<tr>
+<th><strong>名称</strong></th>
+<th><strong>说明</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AddRequestHeader</td>
+<td>给当前请求添加一个请求头</td>
+</tr>
+<tr>
+<td>RemoveRequestHeader</td>
+<td>移除请求中的一个请求头</td>
+</tr>
+<tr>
+<td>AddResponseHeader</td>
+<td>给响应结果中添加一个响应头</td>
+</tr>
+<tr>
+<td>RemoveResponseHeader</td>
+<td>从响应结果中移除有一个响应头</td>
+</tr>
+<tr>
+<td>RequestRateLimiter</td>
+<td>限制请求的流量</td>
+</tr>
+</tbody></table>
+<h3 id="请求头过滤器"><a href="#请求头过滤器" class="headerlink" title="请求头过滤器"></a>请求头过滤器</h3><p>下面我们以AddRequestHeader 为例来讲解。</p>
+<blockquote>
+<p><strong>需求</strong>：给所有进入userservice的请求添加一个请求头：Truth&#x3D;itcast is freaking awesome!</p>
+</blockquote>
+<p>只需要修改gateway服务的application.yml文件，添加路由过滤即可：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">routes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">user-service</span> <br>        <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://userservice</span> <br>        <span class="hljs-attr">predicates:</span> <br>        <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/user/**</span> <br>        <span class="hljs-attr">filters:</span> <span class="hljs-comment"># 过滤器</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestHeader=Truth,</span> <span class="hljs-string">Itcast</span> <span class="hljs-string">is</span> <span class="hljs-string">freaking</span> <span class="hljs-string">awesome!</span> <span class="hljs-comment"># 添加请求头</span><br></code></pre></td></tr></table></figure>
+
+<p>当前过滤器写在userservice路由下，因此仅仅对访问userservice的请求有效。</p>
+<h3 id="默认过滤器"><a href="#默认过滤器" class="headerlink" title="默认过滤器"></a>默认过滤器</h3><p>如果要对所有的路由都生效，则可以将过滤器工厂写到default下。格式如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">routes:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">user-service</span> <br>        <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://userservice</span> <br>        <span class="hljs-attr">predicates:</span> <br>        <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/user/**</span><br>      <span class="hljs-attr">default-filters:</span> <span class="hljs-comment"># 默认过滤项</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">AddRequestHeader=Truth,</span> <span class="hljs-string">Itcast</span> <span class="hljs-string">is</span> <span class="hljs-string">freaking</span> <span class="hljs-string">awesome!</span> <br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>过滤器的作用是什么？</p>
+<p>① 对路由的请求或响应做加工处理，比如添加请求头</p>
+<p>② 配置在路由下的过滤器只对当前路由的请求生效</p>
+<p>defaultFilters的作用是什么？</p>
+<p>① 对所有路由都生效的过滤器</p>
+<h2 id="5、全局过滤器"><a href="#5、全局过滤器" class="headerlink" title="5、全局过滤器"></a>5、全局过滤器</h2><p>上一节学习的过滤器，网关提供了31种，但每一种过滤器的作用都是固定的。如果我们希望拦截请求，做自己的业务逻辑则没办法实现。</p>
+<h3 id="全局过滤器作用"><a href="#全局过滤器作用" class="headerlink" title="全局过滤器作用"></a>全局过滤器作用</h3><p>全局过滤器的作用也是处理一切进入网关的请求和微服务响应，与GatewayFilter的作用一样。区别在于GatewayFilter通过配置定义，处理逻辑是固定的；而GlobalFilter的逻辑需要自己写代码实现。</p>
+<p>定义方式是实现GlobalFilter接口。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">GlobalFilter</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     *  处理当前请求，有必要的话通过&#123;<span class="hljs-doctag">@link</span> GatewayFilterChain&#125;将请求交给下一个过滤器处理</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> exchange 请求上下文，里面可以获取Request、Response等信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> chain 用来把请求委托给下一个过滤器 </span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span> &#123;<span class="hljs-doctag">@code</span> Mono&lt;Void&gt;&#125; 返回标示当前过滤器业务结束</span><br><span class="hljs-comment">     */</span><br>    Mono&lt;Void&gt; <span class="hljs-title function_">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain chain)</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>在filter中编写自定义逻辑，可以实现下列功能：</p>
+<ul>
+<li>登录状态判断</li>
+<li>权限校验</li>
+<li>请求限流等</li>
+</ul>
+<h3 id="自定义全局过滤器"><a href="#自定义全局过滤器" class="headerlink" title="自定义全局过滤器"></a>自定义全局过滤器</h3><p>需求：定义全局过滤器，拦截请求，判断请求的参数是否满足下面条件：</p>
+<ul>
+<li><p>参数中是否有authorization，</p>
+</li>
+<li><p>authorization参数值是否为admin</p>
+</li>
+</ul>
+<p>如果同时满足则放行，否则拦截</p>
+<p>实现：</p>
+<p>在gateway中定义一个过滤器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> cn.itcast.gateway.filters;<br><br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilterChain;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GlobalFilter;<br><span class="hljs-keyword">import</span> org.springframework.core.annotation.Order;<br><span class="hljs-keyword">import</span> org.springframework.http.HttpStatus;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.web.server.ServerWebExchange;<br><span class="hljs-keyword">import</span> reactor.core.publisher.Mono;<br><br><span class="hljs-meta">@Order(-1)</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthorizeFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">GlobalFilter</span> &#123;<br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Mono&lt;Void&gt; <span class="hljs-title function_">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;<br>        <span class="hljs-comment">// 1.获取请求参数</span><br>        MultiValueMap&lt;String, String&gt; params = exchange.getRequest().getQueryParams();<br>        <span class="hljs-comment">// 2.获取authorization参数</span><br>        <span class="hljs-type">String</span> <span class="hljs-variable">auth</span> <span class="hljs-operator">=</span> params.getFirst(<span class="hljs-string">&quot;authorization&quot;</span>);<br>        <span class="hljs-comment">// 3.校验</span><br>        <span class="hljs-keyword">if</span> (<span class="hljs-string">&quot;admin&quot;</span>.equals(auth)) &#123;<br>            <span class="hljs-comment">// 放行</span><br>            <span class="hljs-keyword">return</span> chain.filter(exchange);<br>        &#125;<br>        <span class="hljs-comment">// 4.拦截</span><br>        <span class="hljs-comment">// 4.1.禁止访问，设置状态码</span><br>        exchange.getResponse().setStatusCode(HttpStatus.FORBIDDEN);<br>        <span class="hljs-comment">// 4.2.结束处理</span><br>        <span class="hljs-keyword">return</span> exchange.getResponse().setComplete();<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="过滤器执行顺序"><a href="#过滤器执行顺序" class="headerlink" title="过滤器执行顺序"></a>过滤器执行顺序</h3><p>请求进入网关会碰到三类过滤器：当前路由的过滤器、DefaultFilter、GlobalFilter</p>
+<p>请求路由后，会将当前路由过滤器和DefaultFilter、GlobalFilter，合并到一个过滤器链（集合）中，排序后依次执行每个过滤器：</p>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-12-46-b4c77eafe738297780531f81713c91ed-202210172022869-39c15e.png" srcset="/img/loading.gif" lazyload alt="image-20210714214228409"></p>
+<p>排序的规则是什么呢？</p>
+<ul>
+<li>每一个过滤器都必须指定一个int类型的order值，<strong>order值越小，优先级越高，执行顺序越靠前</strong>。</li>
+<li>GlobalFilter通过实现Ordered接口，或者添加@Order注解来指定order值，由我们自己指定</li>
+<li>路由过滤器和defaultFilter的order由Spring指定，默认是按照声明顺序从1递增。</li>
+<li>当过滤器的order值一样时，会按照 defaultFilter &gt; 路由过滤器 &gt; GlobalFilter的顺序执行。</li>
+</ul>
+<h2 id="6、gateway解决跨域"><a href="#6、gateway解决跨域" class="headerlink" title="6、gateway解决跨域"></a>6、gateway解决跨域</h2><p>跨域：域名不一致就是跨域，主要包括：</p>
+<ul>
+<li><p>域名不同： <a target="_blank" rel="noopener" href="http://www.taobao.com/">www.taobao.com</a> 和 <a target="_blank" rel="noopener" href="http://www.taobao.org/">www.taobao.org</a> 和 <a target="_blank" rel="noopener" href="http://www.jd.com/">www.jd.com</a> 和 miaosha.jd.com</p>
+</li>
+<li><p>域名相同，端口不同：localhost:8080和localhost8081</p>
+</li>
+</ul>
+<p>跨域问题：浏览器禁止请求的发起者与服务端发生跨域ajax请求，请求被浏览器拦截的问题</p>
+<h4 id="解决："><a href="#解决：" class="headerlink" title="解决："></a>解决：</h4><p>application.yml中添加配置：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs yml"><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-comment"># 。。。</span><br>      <span class="hljs-attr">globalcors:</span> <span class="hljs-comment"># 全局的跨域处理</span><br>        <span class="hljs-attr">add-to-simple-url-handler-mapping:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 解决options请求被拦截问题</span><br>        <span class="hljs-attr">corsConfigurations:</span><br>          <span class="hljs-string">&#x27;[/**]&#x27;</span><span class="hljs-string">:</span><br>            <span class="hljs-attr">allowedOrigins:</span> <span class="hljs-comment"># 允许哪些网站的跨域请求 </span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;http://localhost:8090&quot;</span><br>            <span class="hljs-attr">allowedMethods:</span> <span class="hljs-comment"># 允许的跨域ajax的请求方式</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;GET&quot;</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;POST&quot;</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;DELETE&quot;</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;PUT&quot;</span><br>              <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;OPTIONS&quot;</span><br>            <span class="hljs-attr">allowedHeaders:</span> <span class="hljs-string">&quot;*&quot;</span> <span class="hljs-comment"># 允许在请求中携带的头信息</span><br>            <span class="hljs-attr">allowCredentials:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 是否允许携带cookie</span><br>            <span class="hljs-attr">maxAge:</span> <span class="hljs-number">360000</span> <span class="hljs-comment"># 这次跨域检测的有效期</span><br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E5%90%8E%E7%AB%AF/" class="category-chain-item">后端</a>
+  
+  
+
+      </span>
+    
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB/" class="category-chain-item">笔记迁移</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/spring/">#spring</a>
+      
+        <a href="/tags/%E5%BE%AE%E6%9C%8D%E5%8A%A1/">#微服务</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>笔记迁移-Cloud组件</div>
+      <div>https://www.zenithzone.top/2022/09/17/笔记迁移-Cloud组件/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>haonan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月17日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/09/17/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB-Mybatis-Plus/" title="笔记迁移-Mybatis-Plus">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">笔记迁移-Mybatis-Plus</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/09/16/%E7%AC%94%E8%AE%B0%E8%BF%81%E7%A7%BB-Vue/" title="笔记迁移-Vue">
+                        <span class="hidden-mobile">笔记迁移-Vue</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

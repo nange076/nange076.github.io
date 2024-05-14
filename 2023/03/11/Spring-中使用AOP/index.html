@@ -1,0 +1,792 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <link rel="icon" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="haonan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="AOP可以在修改原有的代码的前提下，增加代码的功能，做到无侵入的添加，是Spring的核心功能之一。 参考文章：https:&#x2F;&#x2F;pdai.tech&#x2F;md&#x2F;spring&#x2F;spring-x-framework-aop.html，摘录重要知识点，结合自己的理解创建例子。 AOP相关术语连接点（Jointpoint）：表示需要在程序中插入横切关注点的扩展点，连接点可能是类初始化、方法执行、方法调用、字段调">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring 中使用AOP">
+<meta property="og:url" content="https://www.zenithzone.top/2023/03/11/Spring-%E4%B8%AD%E4%BD%BF%E7%94%A8AOP/index.html">
+<meta property="og:site_name" content="zenithzone">
+<meta property="og:description" content="AOP可以在修改原有的代码的前提下，增加代码的功能，做到无侵入的添加，是Spring的核心功能之一。 参考文章：https:&#x2F;&#x2F;pdai.tech&#x2F;md&#x2F;spring&#x2F;spring-x-framework-aop.html，摘录重要知识点，结合自己的理解创建例子。 AOP相关术语连接点（Jointpoint）：表示需要在程序中插入横切关注点的扩展点，连接点可能是类初始化、方法执行、方法调用、字段调">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-09-47-e4ac46fa0091ceea0513995023674c7d-15-44-31-5f54d5f61a3e31d92af6808386a740da-spring-framework-aop-7-54ac1e-6dd89d.png">
+<meta property="article:published_time" content="2023-03-11T07:14:41.000Z">
+<meta property="article:modified_time" content="2024-05-14T08:33:12.482Z">
+<meta property="article:author" content="haonan">
+<meta property="article:tag" content="spring">
+<meta property="article:tag" content="AOP">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-09-47-e4ac46fa0091ceea0513995023674c7d-15-44-31-5f54d5f61a3e31d92af6808386a740da-spring-framework-aop-7-54ac1e-6dd89d.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>Spring 中使用AOP - zenithzone</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.zenithzone.top","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zenithzone</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-20-15-dfc00bcbcca954cc0ca25a95e07ae3b8-202210171933394-65530d.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Spring 中使用AOP"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-11 15:14" pubdate>
+          2023年3月11日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.4k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          54 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Spring 中使用AOP</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>AOP可以在修改原有的代码的前提下，增加代码的功能，做到无侵入的添加，是Spring的核心功能之一。</p>
+<p>参考文章：<a target="_blank" rel="noopener" href="https://pdai.tech/md/spring/spring-x-framework-aop.html%EF%BC%8C%E6%91%98%E5%BD%95%E9%87%8D%E8%A6%81%E7%9F%A5%E8%AF%86%E7%82%B9%EF%BC%8C%E7%BB%93%E5%90%88%E8%87%AA%E5%B7%B1%E7%9A%84%E7%90%86%E8%A7%A3%E5%88%9B%E5%BB%BA%E4%BE%8B%E5%AD%90%E3%80%82">https://pdai.tech/md/spring/spring-x-framework-aop.html，摘录重要知识点，结合自己的理解创建例子。</a></p>
+<h2 id="AOP相关术语"><a href="#AOP相关术语" class="headerlink" title="AOP相关术语"></a>AOP相关术语</h2><p><strong>连接点（Jointpoint）</strong>：表示需要在程序中插入横切关注点的扩展点，<strong>连接点可能是类初始化、方法执行、方法调用、字段调用或处理异常等等</strong>，Spring只支持方法执行连接点，在AOP中表示为<strong>在哪里干</strong>；</p>
+<p><strong>切入点（Pointcut）</strong>： 选择一组相关连接点的模式，即可以认为连接点的集合，Spring支持perl5正则表达式和AspectJ切入点模式，Spring默认使用AspectJ语法，在AOP中表示为<strong>在哪里干的集合</strong>；</p>
+<p><strong>通知（Advice）</strong>：在连接点上执行的行为，通知提供了在AOP中需要在切入点所选择的连接点处进行扩展现有行为的手段；包括前置通知（before advice）、后置通知(after advice)、环绕通知（around advice），在Spring中通过代理模式实现AOP，并通过拦截器模式以环绕连接点的拦截器链织入通知；在AOP中表示为<strong>干什么</strong>；</p>
+<p><strong>方面&#x2F;切面（Aspect）</strong>：横切关注点的模块化，比如上边提到的日志组件。可以认为是通知、引入和切入点的组合；在Spring中可以使用Schema和@AspectJ方式进行组织实现；在AOP中表示为<strong>在哪干和干什么集合</strong>；</p>
+<p><strong>引入（inter-type declaration）</strong>：也称为内部类型声明，为已有的类添加额外新的字段或方法，Spring允许引入新的接口（必须对应一个实现）到所有被代理对象（目标对象）, 在AOP中表示为<strong>干什么（引入什么）</strong>；</p>
+<p><strong>目标对象（Target Object）</strong>：需要被织入横切关注点的对象，即该对象是切入点选择的对象，需要被通知的对象，从而也可称为被通知对象；由于Spring AOP 通过代理模式实现，从而这个对象永远是被代理对象，在AOP中表示为<strong>对谁干</strong>；</p>
+<p><strong>织入（Weaving）</strong>：把切面连接到其它的应用程序类型或者对象上，并创建一个被通知的对象。这些可以在编译时（例如使用AspectJ编译器），类加载时和运行时完成。Spring和其他纯Java AOP框架一样，在运行时完成织入。在AOP中表示为<strong>怎么实现的</strong>；</p>
+<p><strong>AOP代理（AOP Proxy）</strong>：AOP框架使用代理模式创建的对象，从而实现在连接点处插入通知（即应用切面），就是通过代理来对目标对象应用切面。在Spring中，AOP代理可以用JDK动态代理或CGLIB代理实现，而通过拦截器模型应用切面。在AOP中表示为<strong>怎么实现的一种典型方式</strong>；</p>
+<h2 id="通知的类型"><a href="#通知的类型" class="headerlink" title="通知的类型"></a>通知的类型</h2><p><strong>前置通知（Before advice）</strong>：在某连接点之前执行的通知，但这个通知不能阻止连接点之前的执行流程（除非它抛出一个异常）。</p>
+<p><strong>后置通知（After returning advice）</strong>：在某连接点正常完成后执行的通知：例如，一个方法没有抛出任何异常，正常返回。</p>
+<p><strong>异常通知（After throwing advice）</strong>：在方法抛出异常退出时执行的通知。</p>
+<p><strong>最终通知（After (finally) advice）</strong>：当某连接点退出的时候执行的通知（不论是正常返回还是异常退出）。</p>
+<p><strong>环绕通知（Around Advice）</strong>：包围一个连接点的通知，如方法调用。这是最强大的一种通知类型。环绕通知可以在方法调用前后完成自定义的行为。它也会选择是否继续执行连接点或直接返回它自己的返回值或抛出异常来结束执行。</p>
+<h2 id="AOP相关依赖"><a href="#AOP相关依赖" class="headerlink" title="AOP相关依赖"></a>AOP相关依赖</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--AOP相关--&gt;</span><br><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-aop --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.boot<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-boot-starter-aop<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>2.7.8<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br><span class="hljs-comment">&lt;!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.aspectj<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>aspectjweaver<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h2 id="AspectJ注解方式配置AOP"><a href="#AspectJ注解方式配置AOP" class="headerlink" title="AspectJ注解方式配置AOP"></a>AspectJ注解方式配置AOP</h2><p>基于XML的声明式AspectJ存在一些不足，需要在Spring配置文件配置大量的代码信息，为了解决这个问题，Spring 使用了@AspectJ框架为AOP的实现提供了一套注解。</p>
+<table>
+<thead>
+<tr>
+<th align="left">注解名称</th>
+<th align="left">解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">@Aspect</td>
+<td align="left">用来定义一个切面。</td>
+</tr>
+<tr>
+<td align="left">@pointcut</td>
+<td align="left">用于定义切入点表达式。在使用时还需要定义一个包含名字和任意参数的方法签名来表示切入点名称，这个方法签名就是一个返回值为void，且方法体为空的普通方法。</td>
+</tr>
+<tr>
+<td align="left">@Before</td>
+<td align="left">用于定义前置通知，相当于BeforeAdvice。在使用时，通常需要指定一个value属性值，该属性值用于指定一个切入点表达式(可以是已有的切入点，也可以直接定义切入点表达式)。</td>
+</tr>
+<tr>
+<td align="left">@AfterReturning</td>
+<td align="left">用于定义后置通知，相当于AfterReturningAdvice。在使用时可以指定pointcut &#x2F; value和returning属性，其中pointcut &#x2F; value这两个属性的作用一样，都用于指定切入点表达式。</td>
+</tr>
+<tr>
+<td align="left">@Around</td>
+<td align="left">用于定义环绕通知，相当于MethodInterceptor。在使用时需要指定一个value属性，该属性用于指定该通知被植入的切入点。</td>
+</tr>
+<tr>
+<td align="left">@After-Throwing</td>
+<td align="left">用于定义异常通知来处理程序中未处理的异常，相当于ThrowAdvice。在使用时可指定pointcut &#x2F; value和throwing属性。其中pointcut&#x2F;value用于指定切入点表达式，而throwing属性值用于指定-一个形参名来表示Advice方法中可定义与此同名的形参，该形参可用于访问目标方法抛出的异常。</td>
+</tr>
+<tr>
+<td align="left">@After</td>
+<td align="left">用于定义最终final 通知，不管是否异常，该通知都会执行。使用时需要指定一个value属性，该属性用于指定该通知被植入的切入点。</td>
+</tr>
+<tr>
+<td align="left">@DeclareParents</td>
+<td align="left">用于定义引介通知，相当于IntroductionInterceptor (不要求掌握)。</td>
+</tr>
+</tbody></table>
+<h2 id="切入点（pointcut）的申明规则"><a href="#切入点（pointcut）的申明规则" class="headerlink" title="切入点（pointcut）的申明规则"></a>切入点（pointcut）的申明规则</h2><p>Spring AOP 用户可能会经常使用 execution切入点指示符。执行表达式的格式如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java">execution（modifiers-pattern? ret-type-pattern declaring-type-pattern? name-pattern（param-pattern） <span class="hljs-keyword">throws</span>-pattern?）<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>ret-type-pattern 返回类型模式, name-pattern名字模式和param-pattern参数模式是必选的， 其它部分都是可选的。返回类型模式决定了方法的返回类型必须依次匹配一个连接点。 你会使用的最频繁的返回类型模式是<code>*</code>，<strong>它代表了匹配任意的返回类型</strong>。</li>
+<li>declaring-type-pattern, 一个全限定的类型名将只会匹配返回给定类型的方法。</li>
+<li>name-pattern 名字模式匹配的是方法名。 你可以使用<code>*</code>通配符作为所有或者部分命名模式。</li>
+<li>param-pattern 参数模式稍微有点复杂：()匹配了一个不接受任何参数的方法， 而(…)匹配了一个接受任意数量参数的方法（零或者更多）。 模式(<em>)匹配了一个接受一个任何类型的参数的方法。 模式(</em>,String)匹配了一个接受两个参数的方法，第一个可以是任意类型， 第二个则必须是String类型。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-09-47-e4ac46fa0091ceea0513995023674c7d-15-44-31-5f54d5f61a3e31d92af6808386a740da-spring-framework-aop-7-54ac1e-6dd89d.png" srcset="/img/loading.gif" lazyload alt="必要的规则字段"></p>
+<h2 id="实例1：增强cn-zz-test-controller包下的所有类的所有方法，打印日志"><a href="#实例1：增强cn-zz-test-controller包下的所有类的所有方法，打印日志" class="headerlink" title="实例1：增强cn.zz.test.controller包下的所有类的所有方法，打印日志"></a>实例1：增强cn.zz.test.controller包下的所有类的所有方法，打印日志</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableAspectJAutoProxy</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ControllerAspect</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 定义切入点</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Pointcut(&quot;execution(* cn.zz.test.controller.*.*(..))&quot;)</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pointCutMethod</span><span class="hljs-params">()</span>&#123;&#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 定义环绕通知</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> pjp</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     * <span class="hljs-doctag">@throws</span> Throwable</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Around(&quot;pointCutMethod()&quot;)</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">doAround</span><span class="hljs-params">(ProceedingJoinPoint pjp)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        <span class="hljs-type">ServletRequestAttributes</span> <span class="hljs-variable">requestAttributes</span> <span class="hljs-operator">=</span> (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">requestURI</span> <span class="hljs-operator">=</span> requestAttributes.getRequest().getRequestURI();<br>        <span class="hljs-type">String</span> <span class="hljs-variable">name</span> <span class="hljs-operator">=</span> pjp.getSignature().toShortString();<br>        log.info(name+<span class="hljs-string">&quot;开始,请求地址为：&quot;</span>+requestURI);<br>        <span class="hljs-type">long</span> <span class="hljs-variable">beginTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>        <span class="hljs-type">Object</span> <span class="hljs-variable">o</span> <span class="hljs-operator">=</span> pjp.proceed();<br>        <span class="hljs-type">long</span> <span class="hljs-variable">endTime</span> <span class="hljs-operator">=</span> System.currentTimeMillis();<br>        <span class="hljs-type">long</span> <span class="hljs-variable">time</span> <span class="hljs-operator">=</span> endTime - beginTime;<br>        log.info(name+<span class="hljs-string">&quot;结束,耗时&quot;</span>+time+<span class="hljs-string">&quot;ms&quot;</span>);<br>        <span class="hljs-keyword">return</span> o;<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>controller被调用后的结果：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">2023-03-08 11:35:37.979  INFO 1404 --- [nio-8080-exec-1] cn.zhn.test.aspect.ControllerAspect      : PersonController.getById(..)开始,请求地址为：/person/200<br>2023-03-08 11:35:38.215  INFO 1404 --- [nio-8080-exec-1] cn.zhn.test.aspect.ControllerAspect      : PersonController.getById(..)结束,耗时233ms<br></code></pre></td></tr></table></figure>
+
+<h2 id="实例2：修改方法的传入参数，模拟加密功能"><a href="#实例2：修改方法的传入参数，模拟加密功能" class="headerlink" title="实例2：修改方法的传入参数，模拟加密功能"></a>实例2：修改方法的传入参数，模拟加密功能</h2><p>使用AOP能够在不修改原有代码的情况下对参数进行修改</p>
+<ol>
+<li>注解类：<code>@Target</code>和<code>@Retention</code>注解必不可少</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Target(ElementType.METHOD)</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Encode &#123;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>切面类:<code>@EnableAspectJAutoProxy</code> <code>@Aspect</code> <code>@Component</code> 三个注解必不可少</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableAspectJAutoProxy</span><br><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserPasswordEncodeAspect</span> &#123;<br><br>    <span class="hljs-meta">@Pointcut(&quot;@annotation(cn.zhn.test.validate.Encode)&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pointCutMethod</span><span class="hljs-params">()</span>&#123;&#125;<br><br>    <span class="hljs-meta">@Around(&quot;pointCutMethod()&quot;)</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">doAround</span><span class="hljs-params">(ProceedingJoinPoint pjp)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        <span class="hljs-comment">//获取参数列表</span><br>        Object[] args = pjp.getArgs();<br>        <span class="hljs-comment">//已知需要增强的方法只有一个参数，且参数类型为User</span><br>        <span class="hljs-keyword">if</span>(args[<span class="hljs-number">0</span>] <span class="hljs-keyword">instanceof</span>  User)&#123;<br>            <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> (User) args[<span class="hljs-number">0</span>];<br>            <span class="hljs-comment">//模拟加密过程</span><br>            user.setPassword(user.getPassword()+<span class="hljs-string">&quot;encode&quot;</span>);<br>            args[<span class="hljs-number">0</span>]=user;<br>        &#125;<br>        <span class="hljs-comment">//这一步至关重要，proceed()方法会完成整个完整的方法调用过程，记得传入修改好的参数</span><br>        <span class="hljs-keyword">return</span> pjp.proceed(args);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>获取到参数列表后，再对参数列表修改，若要修改后的参数生效，要在proce()方法中传入修改后的参数值。</p>
+<p>具体效果：<code>user</code>在添加到数据库前，会修改其<code>password</code>的值。</p>
+<h2 id="实例3：修改方法的返回值，模拟解密功能"><a href="#实例3：修改方法的返回值，模拟解密功能" class="headerlink" title="实例3：修改方法的返回值，模拟解密功能"></a>实例3：修改方法的返回值，模拟解密功能</h2><ol>
+<li>注解类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Target(ElementType.METHOD)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Decode &#123;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol>
+<li>切面类</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@EnableAspectJAutoProxy</span><br><span class="hljs-meta">@Aspect</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserPasswordDecodeAspect</span> &#123;<br><br>    <span class="hljs-meta">@Pointcut(&quot;@annotation(cn.zhn.test.validate.Decode)&quot;)</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">pointCutMethod</span><span class="hljs-params">()</span>&#123;&#125;<br><br>    <span class="hljs-meta">@Around(&quot;pointCutMethod()&quot;)</span><br>    <span class="hljs-keyword">public</span> Object <span class="hljs-title function_">doAround</span><span class="hljs-params">(ProceedingJoinPoint pjp)</span> <span class="hljs-keyword">throws</span> Throwable &#123;<br>        <span class="hljs-comment">//已知方法的返回值为User对象</span><br>        <span class="hljs-type">User</span> <span class="hljs-variable">user</span> <span class="hljs-operator">=</span> (User) pjp.proceed();<br>        user.setPassword(<span class="hljs-string">&quot;decode&quot;</span>);<br>        <span class="hljs-comment">//将结果返回给方法</span><br>        <span class="hljs-keyword">return</span> user;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在相应的serverImpl类上加上注释</p>
+<p>查询得到的结果：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>  <span class="hljs-attr">&quot;code&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;200&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;message&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;资源请求成功&quot;</span><span class="hljs-punctuation">,</span><br>  <span class="hljs-attr">&quot;result&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;id&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;username&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ha&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;nickname&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;zhn&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;decode&quot;</span><span class="hljs-punctuation">,</span><br>    <span class="hljs-attr">&quot;email&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;1934@nuknow.com&quot;</span><br>  <span class="hljs-punctuation">&#125;</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+
+<p>可以看到<code>password</code>项被替换为了<code>decode</code></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Java/" class="category-chain-item">Java</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/spring/">#spring</a>
+      
+        <a href="/tags/AOP/">#AOP</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Spring 中使用AOP</div>
+      <div>https://www.zenithzone.top/2023/03/11/Spring-中使用AOP/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>haonan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月11日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/11/Spring-Validation-%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E6%A0%A1%E9%AA%8C%E6%B3%A8%E8%A7%A3/" title="Spring Validation 创建自定义校验注解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Spring Validation 创建自定义校验注解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/11/%E5%AF%B9%E8%B1%A1%E8%BD%AC%E6%8D%A2%E5%B7%A5%E5%85%B7-mapstruct/" title="对象转换工具-mapstruct">
+                        <span class="hidden-mobile">对象转换工具-mapstruct</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

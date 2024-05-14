@@ -1,0 +1,761 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <link rel="icon" href="https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-19-13-537e11e06006e997f465a5098b698b19-202210181240315-899bea.webp">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="haonan">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="数据库索引常见模型 哈希表：使用键值对存储，产生哈希冲突时，将冲突的记录放置到链表中。    优点：检索快，适合等值查询如NoSQL。插入快。   缺点：无法进行区间查询，速度缓慢，只能全表遍历   有序数组：适合静态存储    优点：区间查询和等值查询快。   缺点：更新需要挪动后面的所有记录。   二叉搜索树：使用平衡二叉树存储数据    优点：查询的时间复杂度低为O(log(N))   缺点">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL索引">
+<meta property="og:url" content="https://www.zenithzone.top/2023/10/18/MySQL%E7%B4%A2%E5%BC%95/index.html">
+<meta property="og:site_name" content="zenithzone">
+<meta property="og:description" content="数据库索引常见模型 哈希表：使用键值对存储，产生哈希冲突时，将冲突的记录放置到链表中。    优点：检索快，适合等值查询如NoSQL。插入快。   缺点：无法进行区间查询，速度缓慢，只能全表遍历   有序数组：适合静态存储    优点：区间查询和等值查询快。   缺点：更新需要挪动后面的所有记录。   二叉搜索树：使用平衡二叉树存储数据    优点：查询的时间复杂度低为O(log(N))   缺点">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-18T07:07:18.000Z">
+<meta property="article:modified_time" content="2024-05-14T08:33:12.482Z">
+<meta property="article:author" content="haonan">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>MySQL索引 - zenithzone</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"www.zenithzone.top","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>zenithzone</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/">
+                
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('https://raw.githubusercontent.com/nange076/images/master/picgo/2024/04/21/15-20-15-dfc00bcbcca954cc0ca25a95e07ae3b8-202210171933394-65530d.jpeg') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="MySQL索引"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-18 15:07" pubdate>
+          2023年10月18日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          27 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">MySQL索引</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="数据库索引常见模型"><a href="#数据库索引常见模型" class="headerlink" title="数据库索引常见模型"></a>数据库索引常见模型</h2><ol>
+<li><p>哈希表：使用键值对存储，产生哈希冲突时，将冲突的记录放置到链表中。  </p>
+<ul>
+<li>优点：检索快，适合等值查询如NoSQL。插入快。  </li>
+<li>缺点：无法进行区间查询，速度缓慢，只能全表遍历</li>
+</ul>
+</li>
+<li><p>有序数组：适合静态存储  </p>
+<ul>
+<li>优点：区间查询和等值查询快。  </li>
+<li>缺点：更新需要挪动后面的所有记录。</li>
+</ul>
+</li>
+<li><p>二叉搜索树：使用平衡二叉树存储数据  </p>
+<ul>
+<li>优点：查询的时间复杂度低为O(log(N))  </li>
+<li>缺点：实际应用中，随着树高的增大，查询到对应的叶子结点需要多次寻址，机械硬盘读取一个数据块需要10ms左右的寻址时间，数据量大的时候导致查询缓慢。</li>
+</ul>
+</li>
+<li><p>N叉树：InnoDB使用的索引数据结构，N差不多是1200，树高不大，访问磁盘次数少，查询速度快。</p>
+</li>
+</ol>
+<h2 id="InnoDB索引模型"><a href="#InnoDB索引模型" class="headerlink" title="InnoDB索引模型"></a>InnoDB索引模型</h2><p>主键索引的叶子节点存的是整行数据。在 InnoDB 里，主键索引也被称为聚簇索引（clustered index）。</p>
+<p>非主键索引的叶子节点内容是主键的值。在 InnoDB 里，非主键索引也被称为二级索引（secondary index）。</p>
+<p>聚簇索引找到对应的数据后直接返回，二级索引通过索引值找到对应的id后，需要再通过id去主键索引再寻找一次行数据，这个过程称为回表。</p>
+<h2 id="索引维护"><a href="#索引维护" class="headerlink" title="索引维护"></a>索引维护</h2><p>主键索引最好使用自增的整型id，这样不会每次添加索引都是添加操作，能够更好的实现对空间和搜索时间的利用。</p>
+<ul>
+<li><p>不使用自增id的情况：由于新增数据时，InnoDB需要维护索引，会对id进行排序，例如新增了id&#x3D;500的数据，此时已经存在了400和700两条索引数据，这样需要对后面的索引进行逻辑上的移动，需要花费时间。如果当前数据页已经满了的情况，可能会导致产生页分裂现象，本来应该存在一个数据页的索引被分裂在不同的数据页，降低了搜索效率和空间利用率。</p>
+</li>
+<li><p>不使用整型id作为主键的情况：已知二级索引的叶子节点为主键，这种情况会导致叶子结点的空间占用提高。</p>
+</li>
+</ul>
+<p>当只有一个索引，且这个索引必须是唯一索引，即KV场景，这个情况不需要考虑普通索引叶子结点大小的问题，可以直接将业务字段作为主键id。</p>
+<p>如果索引出现页分裂或者希望优化存在的索引，可以使用重建索引的操作：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#重建非主键索引</span><br>alter table T drop index k;<br>alter table T add index(k);<br><span class="hljs-comment">#重建主键索引</span><br>alter table T drop primary key;<br>alter table T add primary key(<span class="hljs-built_in">id</span>);<br></code></pre></td></tr></table></figure>
+
+<h2 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a>覆盖索引</h2><p>存在一个市民表，里面的字段（身份证号、姓名）构建了一个联合索引，此时一个高频的查询语句，查询身份证获取对应的姓名时，由于这个索引已经包含了姓名，不需要再回表查询主键索引，这个特性称为覆盖索引。</p>
+<h2 id="最左前缀原则"><a href="#最左前缀原则" class="headerlink" title="最左前缀原则"></a>最左前缀原则</h2><p>同样的存在一个市民表，里面的字段（身份证号、姓名）构建了一个联合索引。此时如果有个查询语句，它的条件是身份证号&#x3D;“xxx”，它仍然会走这个索引，等价与对身份证号创建的单独索引。这就需要我们再创建联合索引时，需要考虑字段的顺序。</p>
+<h2 id="索引下推"><a href="#索引下推" class="headerlink" title="索引下推"></a>索引下推</h2><p>存在一个学生表，创建了一个（姓名，年龄）的联合索引，此时有个查询语句：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql">SELET <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> student WEHRE name <span class="hljs-keyword">like</span> <span class="hljs-string">&#x27;张%&#x27;</span> <span class="hljs-keyword">AND</span> age <span class="hljs-operator">=</span> <span class="hljs-number">10</span> <span class="hljs-keyword">AND</span> isfeaml <span class="hljs-operator">=</span> <span class="hljs-number">1</span><br></code></pre></td></tr></table></figure>
+
+<p>在查询走索引时，它会先通过联合索引，获取姓名和年龄都符合查询条件的记录，然后再得到叶子结点的id再进行回表操作获取完整的记录行。其中剔除不符合索引中记录的条件从而减少回表次数的操作，称为索引下推。</p>
+<h2 id="唯一索引和普通索引的选择"><a href="#唯一索引和普通索引的选择" class="headerlink" title="唯一索引和普通索引的选择"></a>唯一索引和普通索引的选择</h2><p>以存在身份证字段的用户表为例，不建议将身份证号作为主键id使用，而是为身份证号创建索引。在保证不会产生重复数据的前提下，要么创建唯一索引，要么创建一个普通索引都是正确的。</p>
+<h3 id="查询效率"><a href="#查询效率" class="headerlink" title="查询效率"></a>查询效率</h3><p>唯一索引和普通索引的查询效率区别不大</p>
+<ul>
+<li>唯一索引在找到符合条件的数据后直接返回结果</li>
+<li>普通索引在找到第一条符合的记录后，会继续寻找下一条记录，直到找到不符合的记录后结束。由于InnoDB是按数据页返回数据的，可能会出现连续记录不在同一数据页的情况，但发生的概率很低，仍然可以认为这个操作成本对于现代cpu来说可忽略不计。</li>
+</ul>
+<h3 id="更新效率"><a href="#更新效率" class="headerlink" title="更新效率"></a>更新效率</h3><ul>
+<li>唯一索引：唯一索引更新时需要检测所有的数据页，确保不存在重复索引字段。这个过程存在多次将数据页写入内存的操作，故效率低下。</li>
+<li>普通索引：普通索引更新时，若要更新的数据或要插入的位置刚好在内容中，直接更新内存中的数据页即可。若不在内存中，则使用change_buffer机制，缓存要更新的内容。</li>
+</ul>
+<h3 id="change-buffer使用场景"><a href="#change-buffer使用场景" class="headerlink" title="change_buffer使用场景"></a>change_buffer使用场景</h3><p>change_buffer会先将更新的内容缓存到内存，当缓存空间被填满或数据库关闭前会执行<code>merge</code>操作，只有<code>merge</code>操作执行后数据才真正的写入磁盘中。</p>
+<p>对于频繁写入的场景，change_buffer能够有限降低对磁盘的io访问次数，提高系统性能。但是对于写入后马上就要进行查询操作的场景，由于change_buffer并不会立即将更新写入磁盘，故不适合在这种场景下使用。</p>
+<h3 id="redo-log-和-change-buffer"><a href="#redo-log-和-change-buffer" class="headerlink" title="redo_log 和 change_buffer"></a>redo_log 和 change_buffer</h3><p>redo_log和change_buffer不是同一个东西，redo_log可能会存在下面的记录：更新了page1中的第几条记录（数据页在内存中）；往change_buffer中写入的准备更新第几行的数据(数据页不在内存中)。</p>
+<p><strong>redo log 主要节省的是随机写磁盘的 IO 消耗（转成顺序写），而 change buffer 主要节省的则是随机读磁盘的 IO 消耗。</strong></p>
+<h2 id="给字符串添加索引"><a href="#给字符串添加索引" class="headerlink" title="给字符串添加索引"></a>给字符串添加索引</h2><h3 id="前缀索引"><a href="#前缀索引" class="headerlink" title="前缀索引"></a>前缀索引</h3><p>前缀索引可以减少索引的空间占用，但可能会增加额外的记录扫描次数。因此，<strong>使用前缀索引时，定义好长度，就可以做到既节省空间，又不用额外增加太多的查询成本。</strong>这个指标可以用区分度来表示。</p>
+<p>使用前缀索引时无法使用覆盖索引来优化查询语句，因为MySQL不知道索引上是否包含了字段的全部信息，仍然需要回表操作。</p>
+<h3 id="其他方式"><a href="#其他方式" class="headerlink" title="其他方式"></a>其他方式</h3><p>以身份证为例，当前缀索引的区分度不够好时，可以使用如下的方式为字符串加索引：</p>
+<ol>
+<li><p>倒序存储，存储身份证号时将其倒过来存，每次查询时这样写：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> field_list <span class="hljs-keyword">from</span> t <span class="hljs-keyword">where</span> id_card <span class="hljs-operator">=</span> reverse(<span class="hljs-string">&#x27;input_id_card_string&#x27;</span>);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用hash字段，在表上新建一个字段，用于存储身份证的校验码，并为这个字段创建索引。每次新增记录时，使用crc32()函数将结果添加到这个字段。由于不同身份证号仍然可能产生hash冲突，得到一样的hash值，每次查询时再判断一次身份证号得到的hash结果相同，且身份证号相同。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">select</span> field_list <span class="hljs-keyword">from</span> t <span class="hljs-keyword">where</span> id_card_crc<span class="hljs-operator">=</span>crc32(<span class="hljs-string">&#x27;input_id_card_string&#x27;</span>) <span class="hljs-keyword">and</span> id_card<span class="hljs-operator">=</span><span class="hljs-string">&#x27;input_id_card_string&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p> <em>注意，只能在等值条件的右侧使用函数，左侧代表数据表的列，对其使用函数计算会使索引失效</em></p>
+</li>
+</ol>
+<p>它们的区别，主要体现在以下三个方面：</p>
+<ol>
+<li>从占用的额外空间来看，倒序存储方式在主键索引上，不会消耗额外的存储空间，而 hash 字段方法需要增加一个字段。当然，倒序存储方式使用 4 个字节的前缀长度应该是不够的，如果再长一点，这个消耗跟额外这个 hash 字段也差不多抵消了。</li>
+<li>在 CPU 消耗方面，倒序方式每次写和读的时候，都需要额外调用一次 reverse 函数，而 hash 字段的方式需要额外调用一次 crc32() 函数。如果只从这两个函数的计算复杂度来看的话，reverse 函数额外消耗的 CPU 资源会更小些。</li>
+<li>从查询效率上看，使用 hash 字段方式的查询性能相对更稳定一些。因为 crc32 算出来的值虽然有冲突的概率，但是概率非常小，可以认为每次查询的平均扫描行数接近 1。而倒序存储方式毕竟还是用的前缀索引的方式，也就是说还是会增加扫描行数。</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" class="category-chain-item">数据库</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/MySQL/">#MySQL</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>MySQL索引</div>
+      <div>https://www.zenithzone.top/2023/10/18/MySQL索引/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>haonan</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月18日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/20/MySQL%E9%94%81/" title="MySQL锁">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">MySQL锁</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/08/Mongodb%E5%8E%9F%E7%94%9FCRUD%E6%93%8D%E4%BD%9C%EF%BC%88Mongo%20shell%EF%BC%89/" title="Mongodb原生CRUD操作（Mongo shell）">
+                        <span class="hidden-mobile">Mongodb原生CRUD操作（Mongo shell）</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
